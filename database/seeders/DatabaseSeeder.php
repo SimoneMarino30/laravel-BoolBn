@@ -19,8 +19,12 @@ class DatabaseSeeder extends Seeder
                 
             UserSeeder::class,
             UserDetailSeeder::class,
+            
             ApartmentSeeder::class,
-                
+            ServiceSeeder::class,
+            
+            ApartmentServiceSeeder::class,  
+              
             ]);
     
     }
