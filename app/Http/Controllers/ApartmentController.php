@@ -14,7 +14,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
+        // $apartment = Apartment::find(1);
+        // dd($apartment);
     }
 
     /**

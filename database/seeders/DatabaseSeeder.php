@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
 
             SponsorSeeder::class,
 
+            ApartmentSponsorSeeder::class,
+
         ]);
     }
 }
