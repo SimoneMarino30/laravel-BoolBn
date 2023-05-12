@@ -24,8 +24,8 @@ return new class extends Migration
             ->constrained()
             ->cascadeOnDelete();
 
-            $table->date('starting_date');
-            $table->date('expiring_date');
+            $table->date('starting_date')->nullable();
+            $table->date('expiring_date')->nullable();
 
             $table->timestamps();
         });

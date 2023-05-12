@@ -9,7 +9,9 @@ class Service extends Model
 {
     use HasFactory;
 
-    // Relazione con tabella projects
+    // * RELAZIONI
+
+    // Relazione con tabella apartments
     public function apartments() {
         return $this->belongsToMany(Apartment::class);
     }
