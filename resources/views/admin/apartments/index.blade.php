@@ -27,7 +27,7 @@
                             <td>{{ $apartment->visibility }}</td>
                             <td>
                                 <a href="{{ route('admin.apartments.show', $apartment) }}">
-                                    <i class="bi bi-eye-fill me-3">button</i>
+                                    <i class="bi bi-eye-fill"></i>
                                 </a>
                             </td>
                         </tr>

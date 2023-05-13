@@ -2,25 +2,28 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- CSRF Token -->
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ env('APP_NAME', 'Laravel') }} | @yield('page-name')</title>
+    <!-- BOOTSTRAP ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-  <!-- Vite -->
-  @vite(['resources/js/app.js'])
+    <title>{{ env('APP_NAME', 'Laravel') }} | @yield('page-name')</title>
+
+    <!-- Vite -->
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
-  <header>
-    @include('layouts.partials._navbar')
-  </header>
-  <main class="">
-    @yield('content')
-  </main>
+    <header>
+        @include('layouts.partials._navbar')
+    </header>
+    <main class="">
+        @yield('content')
+    </main>
 </body>
 
 </html>
