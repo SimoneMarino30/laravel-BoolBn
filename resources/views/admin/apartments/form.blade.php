@@ -46,14 +46,23 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="address" class="form-label">Indirizzo</label>
+                    <label for="address" class="form-label">Indirizzo completo</label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
-                        name="address" value="{{ old('address') ?? $apartment->address }}">
+                        name="address" value="{{ old('address') ?? $apartment->address }}" id="address" 
+                        placeholder="Esempio: Via Marmorata, 100, Roma (RM), Italia"
+                        maxlength="255">
                     @error('address')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
+                    {{-- Lista invisibile --}}
+                    <div id="hidden_list" class="card position-absolute w-100 radius d-none">
+                        <ul class="list">
+
+                        </ul>
+                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -137,6 +146,11 @@
                             </div>
                         @enderror
                     </div>
+
+                    <div class="d-none">
+                        <input type="text" id="latitude" name="latitude">
+                        <input type="text" id="longitude" name="longitude">
+                    </div>
                 </div>
             </div>
 
@@ -158,7 +172,7 @@
         </div>
 
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary">Invia</button>
+            <button type="submit" class="btn btn-primary" id="send_form">Invia</button>
         </div>
 
 
@@ -167,6 +181,7 @@
 @endsection
 
 @section('scripts')
+    {{-- * Preview image --}}
     <script>
         const imageInputEl = document.getElementById('image');
         const imagePreviewEl = document.getElementById('image-preview');
@@ -182,5 +197,28 @@
                 }
             }
         })
+    </script>
+
+    {{-- * Coordinates with tomtom --}}
+    <script>
+        const apiKey = 'VTS7KTu4nrOLxN010rCYu364QXAVRCfK';
+
+        const addressEl = document.getElementById('address');
+
+        const sendFormButtonEl = document.getElementById('send_form');
+
+        sendFormButtonEl.addEventListener('click', function() {
+            if (addressEl.value != '')
+            fetchCoordinates(addressEl.value);
+        })
+
+        function fetchCoordinates (address) {
+            axios.get(`https://api.tomtom.com/search/2/geocode/${address}.json?key=${apiKey}`)
+            .then((response) => {
+                console.log(response);
+            })
+        }
+
+        // 
     </script>
 @endsection
