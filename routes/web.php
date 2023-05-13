@@ -1,7 +1,12 @@
 <?php
 
+// * Auth
 // use App\Http\Controllers\ProfileController;
+
+// * Admin
 use App\Http\Controllers\Admin\ApartmentController;
+use App\Http\Controllers\Admin\MessageController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,13 +28,20 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// APARTMENT ROUTES UTENTE AUTENTICATO
+// * Rotte risorse autenticate
 Route::middleware('auth')
 ->prefix('/admin')
 ->name('admin.')
 ->group(function () {
+
+    // * Risorsa Apartment
     Route::resource('apartments', ApartmentController::class);
+
+    // * Risorsa Message
+    Route::resource('messages', MessageController::class)->only(['index', 'show']);
 });
+
+
 
 // Route::middleware('auth')->group(function () {
 //     Route::get(     '/profile', [ProfileController::class, 'edit'       ])->name('profile.edit');
