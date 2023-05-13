@@ -30,6 +30,7 @@ class MessageController extends Controller
                 ->orderBy('created_at', 'desc');
         });
         
+        // SE esiste l'appartamento seleziona i messaggi di quell'appartamento
          if ($apartment_id) {
              $messages = $messages->where('apartment_id', $apartment_id);
          }
@@ -46,9 +47,9 @@ class MessageController extends Controller
      * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function show(Message $message, Apartment $apartment)
+    public function show(Message $message)
     {
-        return view('admin.messages.show', compact('message', 'apartment'));
+        return view('admin.messages.show', compact('message'));
     }
 
     /**
