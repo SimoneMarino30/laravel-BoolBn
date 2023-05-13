@@ -25,10 +25,17 @@
                             <td>{{ $apartment->title }}</td>
                             <td>{{ $apartment->price }} €</td>
                             <td>{{ $apartment->visibility }}</td>
+                            {{-- Actions --}}
                             <td>
+                                {{-- Dettaglio --}}
                                 <a href="{{ route('admin.apartments.show', $apartment) }}">
                                     <i class="bi bi-eye-fill"></i>
                                 </a>
+                                {{-- Messaggi --}}
+                                <a href="{{ route('admin.messages.index', ['apartment_id' => $apartment->id]) }}" class="mx-2">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </a>
+                                
                             </td>
                         </tr>
                     @empty

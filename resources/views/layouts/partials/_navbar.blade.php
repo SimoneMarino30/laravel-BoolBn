@@ -22,10 +22,6 @@
                 <li class="nav-item">
                     <a class="nav-link {{request()->routeIs('admin.apartments*') ? 'active' : ''}}" href="{{route('admin.apartments.index') }}">{{ __('Appartamenti') }}</a>
                 </li>
-                {{-- * ROTTA MESSAGGI RICEVUTI DAL FRONTEND --}}
-                {{-- <li class="nav-item">
-                    <a class="nav-link {{request()->routeIs('admin.messages*') ? 'active' : ''}}" href="{{route('admin.messages.index') }}">{{ __('Messaggi') }}</a>
-                </li> --}}
             </ul>
         @endauth
 

@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Message;
+use App\Models\Apartment;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -14,30 +17,27 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    
+    // * Funzione per visualizzare lista messaggi inviati dai visitatori
+    public function index(Request $request, Apartment $apartment)
     {
-        //
-    }
+        $user = Auth::user();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $apartment_id = $request->input('apartment_id');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $messages = Message::whereHas('apartment', function ($query) use ($user) {
+            $query->where('user_id', '=', $user->id)
+                ->orderBy('created_at', 'desc');
+        });
+        
+         if ($apartment_id) {
+             $messages = $messages->where('apartment_id', $apartment_id);
+         }
+
+         $messages = $messages->get();
+
+        return view('admin.messages.index', compact('messages'));
+
     }
 
     /**
@@ -47,29 +47,6 @@ class MessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Message $message)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Message $message)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Message $message)
     {
         //
     }

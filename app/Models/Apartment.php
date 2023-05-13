@@ -16,9 +16,15 @@ class Apartment extends Model
         return $this->belongsToMany(Service::class);
     }
 
-    // Relazione con tabella services
+    // Relazione con tabella sponsors
     public function sponsors() {
         return $this->belongsToMany(Sponsor::class);
+    }
+
+    // Relazione con tabella messages
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
     
 }
