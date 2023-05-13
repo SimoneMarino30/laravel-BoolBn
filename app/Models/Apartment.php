@@ -34,4 +34,14 @@ class Apartment extends Model
         return $this->hasMany(Message::class);
     }
     
+    // * HTML
+
+    // Funzione che restituisce un icona html
+    public function getIconHTML() {
+        if ($this->visibility) {
+            return '<i class="bi bi-check-lg"></i>';
+        } else {
+            return '<i class="bi bi-x-lg"></i>';
+        }
+    }
 }

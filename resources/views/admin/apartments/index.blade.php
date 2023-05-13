@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-end">
                 <a type="button" href="{{ route('admin.apartments.create') }}" class="btn btn-outline-primary">
-                    Create New Project
+                    Creata nuovo appartamento
                 </a>
 
             </div>
@@ -21,6 +21,7 @@
                         <th scope="col">Appartamento</th>
                         <th scope="col">Prezzo</th>
                         <th scope="col">Indirizzo</th>
+                        <th scope="col">Visibile</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -32,6 +33,11 @@
                             <td>{{ $apartment->price }} €</td>
                             <td>{{ $apartment->address }}</td>
                             <td>
+                                <span class="{{$apartment->visibility ? 'text-success' : 'text-danger'}}">
+                                    {!!$apartment->getIconHTML()!!}
+                                </span>
+                            </td>
+                            <td>
                                 {{-- Dettaglio --}}
                                 <a href="{{ route('admin.apartments.show', $apartment) }}">
                                     <i class="bi bi-eye-fill"></i>
@@ -41,7 +47,10 @@
                                     class="mx-2">
                                     <i class="bi bi-envelope-fill"></i>
                                 </a>
-
+                                {{-- Modifica --}}
+                                <a href="{{ route('admin.apartments.edit', $apartment) }}">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
                             </td>
                         </tr>
                     @empty
