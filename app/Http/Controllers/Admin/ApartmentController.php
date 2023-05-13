@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 // MODELS
 use App\Models\Apartment;
+use App\Models\Service;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
