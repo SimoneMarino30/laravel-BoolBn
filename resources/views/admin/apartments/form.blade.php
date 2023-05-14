@@ -24,11 +24,11 @@
         </div>
 
         @if ($apartment->id)
-            <form action="{{ route('admin.apartments.update', $apartment) }}" enctype="multipart/form-data" method="POST"
+            <form id="form" action="{{ route('admin.apartments.update', $apartment) }}" enctype="multipart/form-data" method="POST"
                 class="row gy-3">
                 @method('put')
             @else
-                <form action="{{ route('admin.apartments.store') }}" enctype="multipart/form-data" method="POST"
+                <form id="form" action="{{ route('admin.apartments.store') }}" enctype="multipart/form-data" method="POST"
                     class="gy-3">
         @endif
 
@@ -57,7 +57,7 @@
                         </div>
                     @enderror
                     {{-- Lista invisibile --}}
-                    <div id="hidden_list" class="card position-absolute w-100 radius d-none">
+                    <div id="hidden_list" class="d-none">
                         <ul class="list">
 
                         </ul>
@@ -147,10 +147,12 @@
                         @enderror
                     </div>
 
-                    <div class="d-none">
-                        <input type="text" id="latitude" name="latitude">
-                        <input type="text" id="longitude" name="longitude">
-                    </div>
+                    {{-- ! INPUT INVISIBILI PER COORDINATE --}}
+                    {{-- <div class="d-none">
+                        <input type="text" id="latitude" name="latitude" value="{{ old('latitude') ?? $apartment->latitude }}">
+                        <input type="text" id="longitude" name="longitude" value="{{ old('longitude') ?? $apartment->longitude }}">
+                    </div> --}}
+                    
                 </div>
             </div>
 
@@ -203,22 +205,63 @@
     <script>
         const apiKey = 'VTS7KTu4nrOLxN010rCYu364QXAVRCfK';
 
+        const formEl = document.getElementById('form');
         const addressEl = document.getElementById('address');
+        const hiddenListEl = document.getElementById('hidden_list');
 
-        const sendFormButtonEl = document.getElementById('send_form');
+        const latitudeEl = document.getElementById('latitude');
+        const longitudeEl = document.getElementById('longitude');
 
-        sendFormButtonEl.addEventListener('click', function() {
-            if (addressEl.value != '')
-            fetchCoordinates(addressEl.value);
+        let hiddenElements = [];
+
+        const fetchApiSearch = (submit = false) => {
+            if (addressEl.value) {
+                if (!submit) {
+                    hiddenListEl.classList.remove('d-none');
+                    hiddenListEl.scrollTo(0, 0);
+                }
+                axios.get(
+                        `https://api.tomtom.com/search/2/search/${addressEl.value}.json?key=${apiKey}`
+                    )
+                    .then(res => {
+                        hiddenElements = [];
+                        let hiddenElementsList = '';
+                        console.log(res.data.results);
+                        res.data.results.forEach(result => {
+                            hiddenElements.push(result.address.freeformAddress);
+                        });
+                        // latitudeEl.value = res.data.results[0].position.lat;
+                        console.log(res.data.results[0].position.lat + ' lat');
+                        // longitudeEl.value = res.data.results[0].position.lon;
+                        console.log(res.data.results[0].position.lon + ' lon');
+
+                    //     hiddenElements.forEach(suggestion => {
+                    //         hiddenElementsList +=
+                    //         `<li class="suggestion-element border-top p-2">${suggestion}</li>`;
+                    //         console.log(hiddenElementsList);
+                    //     })
+                    //     hiddenListEl.innerHTML = hiddenElementsList;
+                    //     const suggestionElements = document.querySelectorAll('.suggestion-element');
+                    //     suggestionElements.forEach(element => {
+                    //         element.addEventListener('click', () => {
+                    //             addressEl.value = element.innerText;
+                    //             hiddenListEl.classList.add('d-none');
+                    //         })
+                    //     })
+                    //     if (submit) {
+                    //         if (hiddenElements.includes(addressEl.value)) form.submit();
+                    //         // else alert.classList.remove('d-none') & suggestionsField.classList.add('d-none');
+                    //     }
+
+                    })
+            } else if (submit) form.submit();
+        }
+        form.addEventListener('submit', (e) => {
+            console.log('ciaaaaaao');
+            e.preventDefault();
+            fetchApiSearch(true);
         })
 
-        function fetchCoordinates (address) {
-            axios.get(`https://api.tomtom.com/search/2/geocode/${address}.json?key=${apiKey}`)
-            .then((response) => {
-                console.log(response);
-            })
-        }
-
-        // 
+        window.addEventListener('click', () => hiddenListEl.classList.add('d-none'));
     </script>
 @endsection
