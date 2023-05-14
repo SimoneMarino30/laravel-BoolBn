@@ -12,9 +12,7 @@
                 {{ $apartment->id ? 'Modifica appartamento - ' . $apartment->title : 'Aggiungi un nuovo appartamento' }}
             </h1>
 
-            <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">
-                Torna alla lista
-            </a>
+            
 
             @if (session('message_content'))
                 <div class="alert alert-{{ session('message_type') ? session('message_type') : 'success' }} mt-4">
@@ -167,9 +165,13 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-6">
             <button type="submit" class="btn btn-primary">Invia</button>
+            <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">
+                Torna alla lista
+            </a>
         </div>
+
 
 
         </form>

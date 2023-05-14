@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-end">
                 <a type="button" href="{{ route('admin.apartments.create') }}" class="btn btn-outline-primary">
-                    Creata nuovo appartamento
+                    Aggiungi un nuovo appartamento
                 </a>
 
             </div>
