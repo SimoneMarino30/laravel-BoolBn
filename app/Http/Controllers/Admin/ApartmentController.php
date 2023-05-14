@@ -84,7 +84,8 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        return view('admin.apartments.form', compact('apartment'));
+        $services = Service::all();
+        return view('admin.apartments.form', compact('apartment', 'services'));
     }
 
     /**

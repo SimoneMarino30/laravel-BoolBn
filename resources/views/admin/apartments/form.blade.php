@@ -34,7 +34,7 @@
 
         @csrf
         <div class="row">
-            <div class="col-md-6" style="border: 2px solid red">
+            <div class="col-md-6">
                 <div class="mb-3">
                     <label for="title" class="form-label">Nome appartamento</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
@@ -116,21 +116,31 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="title" class="form-label">Add numero ospiti</label>
-                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
-                            name="title" value="{{ old('title') ?? $apartment->title }}">
-                        @error('title')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <div class="col-md-2">
+                            <label for="visibility" class="form-label">Pubblicato</label>
+                        </div>
+                        <div class="col-md-12 d-flex flex-row">
+                            <input type="checkbox" name="visibility" id="visibility"
+                                class="form-check-control @error('visibility') is-invalid @enderror"
+                                @checked(old('visibility', $apartment->visibility)) value="1" />
+                            @error('visibility')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            {{-- MODAL TRIGGER BUTTON --}}
+                            <button type="button" class="ms-auto btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#add-modal">
+                                Aggiungi servizi
+                            </button>
+                        </div>
+
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Descrizione</label>
-                        <textarea type="text" class="form-control @error('title') is-invalid @enderror" id="description" name="description"
-                            value="{{ old('description') ?? $apartment->description }}"></textarea>
-                        {{-- <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                id="title" name="title" value="{{ old('title') ?? $apartment->description }}"> --}}
+                        <textarea class="form-control @error('title') is-invalid @enderror" id="description" name="description">
+                            {{ old('description') ?? $apartment->description }}
+                        </textarea>
                         @error('description')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -183,4 +193,38 @@
             }
         })
     </script>
+@endsection
+
+@section('modals')
+    @foreach ($services as $service)
+        <div class="modal fade" id="add-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Scegli i servizi aggiuntivi da aggiungere
+                            alla
+                            tua struttura</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @foreach ($services as $service)
+                            <input type="checkbox" id="service{{ $service->id }}" value="{{ $service->id }}"
+                                name="services[]" class="form-check-control @error('services') is-invalid @enderror p-0 "
+                                @if (in_array($service->id, old($service->id, $apartment_services ?? []))) checked @endif>
+                            <label for="service{{ $service->id }}">
+                                <i class="{{ $service->icon }}"></i>
+                                {{ $service->name }}
+                            </label>
+                            <br>
+                        @endforeach
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <button type="button" class="btn btn-primary">Aggiungi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
