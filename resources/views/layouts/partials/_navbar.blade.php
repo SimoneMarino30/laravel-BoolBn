@@ -1,6 +1,6 @@
 <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
+      <a class="navbar-brand d-flex align-items-center" href="http://localhost:5174">
         <i class="bi bi-house-door-fill me-2"></i>
         BoolBnB
       </a>
