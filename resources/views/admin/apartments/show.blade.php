@@ -15,6 +15,11 @@
                 <figcaption>
                     <h5 class="my-5">{{ $apartment->description }}</h5>
                     <p class="text-muted text-secondary m-0"> {{ $apartment->price }} €</p>
+                    @forelse ($apartment->services as $service)
+                        <p>{{ $service->name }}</p>
+                    @empty
+                        nessun servizio selezionato
+                    @endforelse
                     </figure>
             </div>
         </div>

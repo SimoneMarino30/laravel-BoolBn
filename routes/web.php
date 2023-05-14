@@ -6,6 +6,7 @@
 // * Admin
 use App\Http\Controllers\Admin\ApartmentController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\ServiceController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,10 @@ Route::middleware('auth')
 
     // * Risorsa Message
     Route::resource('messages', MessageController::class)->only(['index', 'show']);
+
+    Route::resource('services', ServiceController::class)->only(['index']);
+
+
 });
 
 

@@ -28,11 +28,11 @@
                 class="row gy-3">
                 @method('put')
             @else
-                <form action="{{ route('admin.apartments.store') }}" enctype="multipart/form-data" method="POST"
-                    class="gy-3">
+                <form id="myForm" action="{{ route('admin.apartments.store') }}" enctype="multipart/form-data"
+                    method="POST" class="gy-3">
         @endif
-
         @csrf
+
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">
@@ -164,7 +164,21 @@
                 </div>
                 {{-- IMG PREVIEW --}}
                 <img src="{{ $apartment->getImageUri() }}" alt="" class="img-fluid mb-2" id="image-preview">
+                <div>
+                    @foreach ($services as $service)
+                        <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
+                            name="services[]" class="services"
+                            class="form-check-control @if (in_array($service->id, old('services', $apartment_services ?? []))) checked @endif">
+                        <label for="service-{{ $service->id }}">
+                            <i class="{{ $service->icon }}"></i>
+                            <span>{{ $service->name }}</span>
+                        </label>
+                        <br>
+                    @endforeach
+                </div>
+
             </div>
+
         </div>
 
         <div class="col-md-12">
@@ -193,6 +207,18 @@
             }
         })
     </script>
+
+    <script>
+        var checkboxes = document.querySelectorAll('.services');
+        var valoriSelezionati = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                valoriSelezionati.push(checkboxes[i].value);
+            }
+        }
+        console.log(valoriSelezionati);
+    </script>
+
 @endsection
 
 @section('modals')
@@ -209,19 +235,27 @@
                     </div>
                     <div class="modal-body">
                         @foreach ($services as $service)
-                            <input type="checkbox" id="service{{ $service->id }}" value="{{ $service->id }}"
-                                name="services[]" class="form-check-control @error('services') is-invalid @enderror p-0 "
-                                @if (in_array($service->id, old($service->id, $apartment_services ?? []))) checked @endif>
-                            <label for="service{{ $service->id }}">
+                            <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
+                                name="services[]" class="services"
+                                class="form-check-control @if (in_array($service->id, old('services', $apartment_services ?? []))) checked @endif">
+                            <label for="service-{{ $service->id }}">
                                 <i class="{{ $service->icon }}"></i>
-                                {{ $service->name }}
+                                <span>{{ $service->name }}</span>
                             </label>
                             <br>
                         @endforeach
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                        <button type="submit" class="btn btn-primary">Aggiungi</button>
+                        <button id="saveModalButton" type="submit" class="btn btn-primary">Aggiungi</button>
+                        {{-- <form action="{{ route('admin.apartments.update', $service) }}" method="POST">
+                            @csrf
+                            @method('put')
+
+                            <button class="btn btn-success">
+                                Aggiungi
+                            </button>
+                        </form> --}}
                     </div>
                 </div>
             </div>

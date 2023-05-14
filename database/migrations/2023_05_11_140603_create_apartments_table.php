@@ -27,11 +27,12 @@ return new class extends Migration
             $table->unsignedTinyInteger('bathrooms');
             $table->unsignedSmallInteger('mq');
             $table->text('address');
-            $table->string('latitude', 100);
-            $table->string('longitude', 100);
+            $table->string('latitude', 100)->nullable();
+            $table->string('longitude', 100)->nullable();
             $table->float('price', 6,2 )->unsigned();
             $table->string('image', 255)->nullable();
-            $table->string('slug', 255)->unique();
+            // slug unique, nullable solo per prova salvataggio
+            $table->string('slug', 255)->nullable();
             $table->boolean('visibility')->default(1);
             
             $table->timestamps();
