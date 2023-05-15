@@ -151,13 +151,13 @@ class ApartmentController extends Controller
             [
             'title' => 'required|string|max:100',
             'address' => 'required|string',
-            'rooms' => 'required|integer',
-            'beds' => 'required|integer',
-            'bathrooms' => 'required|integer',
+            'rooms' => 'required|integer| max:10',
+            'beds' => 'required|integer|max:20',
+            'bathrooms' => 'required|integer|max:8',
             'mq' => 'required|integer',
             'price' => 'required|numeric|max:9999.99',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:10240',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg',
             'services' =>  'nullable|exists:services,id'
             
         ],
@@ -171,12 +171,15 @@ class ApartmentController extends Controller
 
             'rooms.required' => 'il numero di stanze è obbligatorio',
             'rooms.integer' => 'il numero di stanze deve essere un numero',
+            'rooms.max' => 'le stanze non possono essere maggiori di 10',
 
             'beds.required' => 'il numero di letti è obbligatorio',
             'beds.integer' => 'il numero di letti deve essere un numero',
+            'beds.max' => 'i letti non possono essere maggiori di 20',
 
             'bathrooms.required' => 'il numero di bagni è obbligatorio',
             'bathrooms.integer' => 'il numero di bagni deve essere un numero',
+            'bathrooms.max' => 'i bagni non possono essere maggiori di 8',
 
             'mq.required' => 'il numero di mq è obbligatorio',
             'mq.integer' => 'i mq devono essere un numero',
@@ -190,7 +193,7 @@ class ApartmentController extends Controller
 
             'image.image' => 'devi caricare un\' immagine',
             'image.mimes' => 'le estensioni accettate sono: jpg, png, jpeg',
-            'image.max' => 'la grandezza massima dell\' immagine è 10MB',
+        
 
             'services.exists' => 'I servizi selezionati non sono validi'
 
