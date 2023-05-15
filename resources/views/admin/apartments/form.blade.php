@@ -7,21 +7,31 @@
         @include('layouts.partials._validation')
     </div>
     <section class="container">
+        <div class="row my-4">
+            <div class="col-md-9">
+                <h1>
+                    {{ $apartment->id ? 'Modifica appartamento - ' . $apartment->title : 'Aggiungi un nuovo appartamento' }}
+                </h1>
+            </div>
+
+            <div class="col-md-3 text-end">
+                <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">
+                    Torna alla lista
+                </a>
+            </div>
+        </div>
+
         <div class="text-center">
-            <h1 class="my-4">
-                {{ $apartment->id ? 'Modifica appartamento - ' . $apartment->title : 'Aggiungi un nuovo appartamento' }}
-            </h1>
-
-
-
-            @if (session('message_content'))
+             @if (session('message_content'))
                 <div class="alert alert-{{ session('message_type') ? session('message_type') : 'success' }} mt-4">
                     {{ session('message_content') }}
                 </div>
             @endif
         </div>
 
-        @if ($apartment->id)
+        <div class="card">
+            <div class="card-body">
+                @if ($apartment->id)
             <form action="{{ route('admin.apartments.update', $apartment) }}" enctype="multipart/form-data" method="POST"
                 class="row gy-3">
                 @method('put')
@@ -32,7 +42,7 @@
         @csrf
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="mb-3">
                     <label for="title" class="form-label">Nome appartamento</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
@@ -121,32 +131,90 @@
                         @enderror
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="col-md-2">
-                            <label for="visibility" class="form-label">Pubblicato</label>
-                        </div>
-                        <div class="col-md-12 d-flex flex-row">
+                    <div class="col-md-2 d-flex flex-column justify-content-center align-items-center">
+                        <label for="visibility" class="form-check-label">Pubblicato</label>
+                        <div class="form-check form-switch">
                             <input type="checkbox" name="visibility" id="visibility"
-                                class="form-check-control @error('visibility') is-invalid @enderror"
-                                @checked(old('visibility', $apartment->visibility)) value="1" />
+                            class="form-check-input @error('visibility') is-invalid @enderror" role="switch"
+                            @checked(old('visibility', $apartment->visibility)) value="1" />
                             @error('visibility')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                             @enderror
-                            {{-- MODAL TRIGGER BUTTON --}}
-                            <button type="button" class="ms-auto btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#add-modal">
-                                Aggiungi servizi
-                            </button>
                         </div>
-
                     </div>
-                    <div class="mb-3">
+
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        {{-- * MODALE SERVIZI AGGIUNTIVI --}}
+                        <div class="ms-auto">
+                            {{-- * Servizi  --}}
+                            @if (count($services) > 0)
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#service-model">
+                                    Aggiugni servizi
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade text-start" id="service-model" tabindex="-1"
+                                    aria-labelledby="exampleModalScrollableTitle" aria-modal="true" role="dialog">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Servizi</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <h4>
+                                                    Scegli uno o più servizi
+                                                </h4>
+                                                <div class="mb-3">
+                                                    <label
+                                                        class="form-check-label d-block mb-2 @error('services') text-danger @enderror">
+                                                        Servizi
+                                                    </label>
+                                                    <ul id="services_list">
+                                                        @foreach ($services as $service)
+                                                            <li>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input
+                                                                        class="form-check-input  @error('services') is-invalid @enderror"
+                                                                        type="checkbox" id="tech-{{ $service->id }}"
+                                                                        name="services[]" value="{{ $service->id }}"
+                                                                        @if (in_array($service->id, old('services', $apartment_services ?? []))) checked @endif>
+
+                                                                    <label
+                                                                        class="form-check-label @error('services') text-danger @enderror"
+                                                                        for="tech-{{ $service->id }}">
+                                                                        <i class="{{ $service->icon }}"></i>
+                                                                        {{ $service->name }}
+                                                                    </label>
+                                                                </div>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                    @error('services')
+                                                        <p class="text-danger fw-bold">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Chiudi
+                                                    e conferma</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            </div>
+                    </div>
+                    <div>
                         <label for="description" class="form-label">Descrizione</label>
-                        <textarea class="form-control @error('title') is-invalid @enderror" id="description" name="description">
-                            {{ old('description') ?? $apartment->description }}
-                        </textarea>
+                        <textarea class="form-control @error('title') is-invalid @enderror" id="description" name="description">{{ old('description') ?? $apartment->description }}</textarea>
                         @error('description')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -154,69 +222,7 @@
                         @enderror
                     </div>
 
-                    {{-- ************************* --}}
-                    <div class="col-12 text-center mb-5 mt-5">
-                        {{-- * Servizi  --}}
-                        @if (count($services) > 0)
-                            <!-- Button trigger modal -->
-                            <button type="button" class="primary-btn" data-bs-toggle="modal"
-                                data-bs-target="#service-model">
-                                Aggiugni servizi
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade text-start" id="service-model" tabindex="-1"
-                                aria-labelledby="exampleModalScrollableTitle" aria-modal="true" role="dialog">
-                                <div class="modal-dialog modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Servizi</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-
-                                            <h4>
-                                                Scegli uno o più servizi
-                                            </h4>
-                                            <div class="mb-3">
-                                                <label
-                                                    class="form-check-label d-block mb-2 @error('services') text-danger @enderror">
-                                                    Servizi
-                                                </label>
-                                                <ul>
-                                                    @foreach ($services as $service)
-                                                        <li>
-                                                            <div class="form-check form-check-inline">
-                                                                <input
-                                                                    class="form-check-input  @error('services') is-invalid @enderror"
-                                                                    type="checkbox" id="tech-{{ $service->id }}"
-                                                                    name="services[]" value="{{ $service->id }}"
-                                                                    @if (in_array($service->id, old('services', $apartment_services ?? []))) checked @endif>
-
-                                                                <label
-                                                                    class="form-check-label @error('services') text-danger @enderror"
-                                                                    for="tech-{{ $service->id }}">{{ $service->name }}</label>
-                                                            </div>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                                @error('services')
-                                                    <p class="text-danger fw-bold">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="primary-btn" data-bs-dismiss="modal">Chiudi
-                                                e conferma</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                    {{-- ************************* --}}
+                    
 
                     {{-- ! INPUT INVISIBILI PER COORDINATE --}}
                     {{-- <div class="d-none">
@@ -227,8 +233,8 @@
                 </div>
             </div>
 
-            {{-- COLONNA 2 --}}
-            <div class="col-md-6">
+            {{-- * COLONNA 2 --}}
+            <div class="col-md-4 d-flex flex-column">
                 <div class="mb-3 form-group">
                     <label for="image">Immagine</label>
                     <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
@@ -239,37 +245,27 @@
                         </div>
                     @enderror
                 </div>
+
                 {{-- IMG PREVIEW --}}
-                <img src="{{ $apartment->getImageUri() }}" alt="" class="img-fluid mb-2" id="image-preview">
-                <div>
-
-                    {{-- SERVICES CHECKBOXES --}}
-                    {{-- @foreach ($services as $service)
-                        <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
-                            name="services[]" class="form-check-control"
-                            @if (in_array($service->id, old($service->id, $apartment_services ?? []))) checked @endif>
-                        <label for="service-{{ $service->id }}">
-                            <i class="{{ $service->icon }}"></i>
-                            <span>{{ $service->name }}</span>
-                        </label>
-                        <br>
-                    @endforeach --}}
+                <div id="image_preview_content" class="text-center">
+                    <img src="{{ $apartment->getImageUri() }}" alt="" class="img-fluid mb-2" id="image-preview">
                 </div>
-
+    
+                <div class="mt-auto text-end">
+                    <button type="submit" class="btn btn-primary">Invia</button>
+                </div>
             </div>
 
         </div>
 
-        <div class="col-md-6">
-            <button type="submit" class="btn btn-primary">Invia</button>
-            <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">
-                Torna alla lista
-            </a>
-        </div>
 
 
 
         </form>
+            </div>
+        </div>
+
+        
     </section>
 @endsection
 

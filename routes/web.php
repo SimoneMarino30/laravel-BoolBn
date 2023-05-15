@@ -41,7 +41,7 @@ Route::middleware('auth')
     Route::resource('messages', MessageController::class)->only(['index', 'show']);
 
     // * Risorsa UserDetail
-    Route::resource('user_datas', UserDetailController::class)->only(['update', 'edit', 'index']);
+    Route::resource('user_details', UserDetailController::class)->only(['update', 'edit', 'index']);
 });
 
 
