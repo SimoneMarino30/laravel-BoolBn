@@ -79,7 +79,7 @@ class ServiceSeeder extends Seeder
             ],
             [
                 "name" => "Idromassaggio",
-                "icon" => "fa-solid fa-spray-can",
+                "icon" => "fa-solid fa-hot-tub-person",
             ],
             [
                 "name" => "Domotica",
@@ -103,7 +103,7 @@ class ServiceSeeder extends Seeder
             ],
             [
                 "name" => "Set di cortesia",
-                "icon" => "fa-solid fa-gift",
+                "icon" => "fa-solid fa-spray-can-sparkles",
             ],
             [
                 "name" => "Camino",
