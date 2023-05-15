@@ -165,10 +165,12 @@
                 {{-- IMG PREVIEW --}}
                 <img src="{{ $apartment->getImageUri() }}" alt="" class="img-fluid mb-2" id="image-preview">
                 <div>
+
+                    {{-- SERVICES CHECKBOXES --}}
                     @foreach ($services as $service)
                         <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
-                            name="services[]" class="services"
-                            class="form-check-control @if (in_array($service->id, old('services', $apartment_services ?? []))) checked @endif">
+                            name="services[]" class="services form-check-control"
+                            @if (in_array($service->id, old('services', $apartment_services ?? []))) checked @endif>
                         <label for="service-{{ $service->id }}">
                             <i class="{{ $service->icon }}"></i>
                             <span>{{ $service->name }}</span>
@@ -208,7 +210,7 @@
         })
     </script>
 
-    <script>
+    {{-- <script>
         var checkboxes = document.querySelectorAll('.services');
         var valoriSelezionati = [];
         for (var i = 0; i < checkboxes.length; i++) {
@@ -217,11 +219,11 @@
             }
         }
         console.log(valoriSelezionati);
-    </script>
+    </script> --}}
 
 @endsection
 
-@section('modals')
+{{-- @section('modals')
     @foreach ($services as $service)
         <div class="modal fade" id="add-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -237,7 +239,7 @@
                         @foreach ($services as $service)
                             <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
                                 name="services[]" class="services"
-                                class="form-check-control @if (in_array($service->id, old('services', $apartment_services ?? []))) checked @endif">
+                                class="form-check-control" @if (in_array($service->id, old('services', $apartment_services ?? []))) checked @endif>
                             <label for="service-{{ $service->id }}">
                                 <i class="{{ $service->icon }}"></i>
                                 <span>{{ $service->name }}</span>
@@ -248,17 +250,17 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                         <button id="saveModalButton" type="submit" class="btn btn-primary">Aggiungi</button>
-                        {{-- <form action="{{ route('admin.apartments.update', $service) }}" method="POST">
+                        <form action="{{ route('admin.apartments.update', $service) }}" method="POST">
                             @csrf
                             @method('put')
 
                             <button class="btn btn-success">
                                 Aggiungi
                             </button>
-                        </form> --}}
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     @endforeach
-@endsection
+@endsection --}}

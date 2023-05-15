@@ -7,9 +7,9 @@
     <section class="container mt-5" style="border: 2px dashed blue">
         <div class="card mt-5">
             <div class="card-body">
-                {{-- <figure class="ms-5 mb-3">
-                <img src="{{ $apartment->getImageUri() }}" alt="" class="img-fluid">
-            </figure> --}}
+                <figure class="ms-5 mb-3">
+                    <img src="{{ $apartment->getImageUri() }}" alt="" class="img-fluid">
+                </figure>
                 <div>{{ $apartment->id }}</div>
                 <div>{{ $apartment->title }}</div>
                 <figcaption>

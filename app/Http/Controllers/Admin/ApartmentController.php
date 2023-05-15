@@ -63,15 +63,22 @@ class ApartmentController extends Controller
          $user = Auth::user();
          $data[ 'user_id'] = $user->id;
 
-        $apartment = new Apartment();
+        // $apartment = new Apartment();
         
-        $apartment->fill($data);
+        // $apartment->fill($data);
         // dd($data);
-        $apartment->save();
+        // $apartment->save();
         // dd($data);
 
-        if(Arr::exists($data, "services")) $apartment->services()->attach($data["services"]);
+        // if(Arr::exists($data, "services")) $apartment->services()->attach($data["services"]);
+        $apartment = Apartment::create($data);
+        if (Arr::exists ($data, 'services')) {
 
+            foreach ($data['services'] as $service) {
+                $apartment->services()->attach($service);
+            }
+        }
+        // dd($apartment);
         return redirect()->route('admin.apartments.show', $apartment);
     }
 
@@ -96,7 +103,7 @@ class ApartmentController extends Controller
     {
         $services = Service::all();
         $apartment_services = $apartment->services->pluck('id')->toArray();
-        return view('admin.apartments.form', compact('apartment', 'services'));
+        return view('admin.apartments.form', compact('apartment', 'services', 'apartment_services'));
     }
 
     /**
