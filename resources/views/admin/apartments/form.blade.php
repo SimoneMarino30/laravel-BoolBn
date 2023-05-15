@@ -3,7 +3,7 @@
 @section('page-name', 'Modifica DB')
 
 @section('content')
-    <div class="container py-3">
+    <div class="container pt-5">
         @include('layouts.partials._validation')
     </div>
     <section class="container">

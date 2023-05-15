@@ -43,20 +43,20 @@
                             </td>
                             <td>
                                 {{-- Dettaglio --}}
-                                <a href="{{ route('admin.apartments.show', $apartment) }}">
+                                <a href="{{ route('admin.apartments.show', $apartment) }}" title="Dettaglio">
                                     <i class="bi bi-eye-fill"></i>
                                 </a>
                                 {{-- Messaggi --}}
-                                <a href="{{ route('admin.messages.index', ['apartment_id' => $apartment->id]) }}"
+                                <a href="{{ route('admin.messages.index', ['apartment_id' => $apartment->id]) }}" title="Messaggi"
                                     class="mx-2">
                                     <i class="bi bi-envelope-fill"></i>
                                 </a>
                                 {{-- Modifica --}}
-                                <a href="{{ route('admin.apartments.edit', $apartment) }}">
+                                <a href="{{ route('admin.apartments.edit', $apartment) }}" title="Modifica">
                                     <i class="bi bi-pencil-square me-2"></i>
                                 </a>
                                 <button class="bi bi-trash3-fill text-danger btn-icon" data-bs-toggle="modal"
-                                    data-bs-target="#delete-modal-{{ $apartment->id }}"></button>
+                                    data-bs-target="#delete-modal-{{ $apartment->id }}" title="Elimina"></button>
                             </td>
                         </tr>
                     @empty
