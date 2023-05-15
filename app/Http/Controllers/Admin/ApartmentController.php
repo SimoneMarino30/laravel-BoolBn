@@ -67,6 +67,7 @@ class ApartmentController extends Controller
         
         $apartment->fill($data);
         // dd($data);
+        $apartment->visibility = $request->has('visibility') ? 1 : 0;
         $apartment->save();
         // dd($data);
 
@@ -117,7 +118,9 @@ class ApartmentController extends Controller
             $data['image'] = $path;
         }
 
-        $apartment->update($data);
+        $apartment->fill($data);
+        $apartment->visibility = $request->has('visibility') ? 1 : 0;
+        $apartment->save($data);
 
         if(Arr::exists($data, "services")) 
             $apartment->services()->sync($data["services"]);
