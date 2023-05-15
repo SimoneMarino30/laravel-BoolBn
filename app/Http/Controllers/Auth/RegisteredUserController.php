@@ -31,9 +31,24 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            // 'name' => ['required', 'string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:100'],
+            'surname' => ['nullable', 'string', 'max:100'],
+            'date_of_birth' => ['nullable', 'date_format:Y-m-d'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'name.string' => 'Il nome deve essere una stringa',
+            'name.max' => 'Il nome puù contenere massimo 100 caratteri',
+
+            'email.required' => 'L\'email è obbligatoria',
+            'email.string' => 'L\'email deve essere una stringa',
+            'email.email' => 'L\'email deve essere un\'indirizzo email valido',
+            'email.max' => 'L\'email può contenere al massimo 255 caratteri',
+
+            'surname.string' => 'Il cognome deve essere una stringa',
+            'surname.max' => 'Il cognome puù contenere massimo 100 caratteri',
+
+            'date_of_birth.date_format' => 'La data deve avere il formato Y-m-d',
         ]);
 
         $user = User::create([
