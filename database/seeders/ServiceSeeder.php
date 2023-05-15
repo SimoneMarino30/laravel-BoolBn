@@ -35,7 +35,7 @@ class ServiceSeeder extends Seeder
             ],
             [
                 "name" => "Sauna",
-                "icon" => "fa-regular fa-spa",
+                "icon" => "fa-solid fa-spa",
             ],
             [
                 "name" => "Vista mare",
@@ -55,7 +55,7 @@ class ServiceSeeder extends Seeder
             ],
             [
                 "name" => "Bagno privato",
-                "icon" => "fa-sharp fa-light fa-toilet",
+                "icon" => "fa-solid fa-toilet",
             ],
             [
                 "name" => "Colazione inclusa",
@@ -79,15 +79,15 @@ class ServiceSeeder extends Seeder
             ],
             [
                 "name" => "Idromassaggio",
-                "icon" => "fa-sharp fa-regular fa-arrows-spin",
+                "icon" => "fa-solid fa-spray-can",
             ],
             [
                 "name" => "Domotica",
                 "icon" => "fa-solid fa-robot",
             ],
             [
-                "name" => "Griglia per barbecue",
-                "icon" => "fa-solid fa-grill-hot",
+                "name" => "Barbeque",
+                "icon" => "fa-solid fa-stroopwafel",
             ],
             [
                 "name" => "Giardino",
@@ -107,7 +107,7 @@ class ServiceSeeder extends Seeder
             ],
             [
                 "name" => "Camino",
-                "icon" => "fa-duotone fa-fireplace",
+                "icon" => "fa-solid fa-fire"
             ],
             [
                 "name" => "Acessibilità",

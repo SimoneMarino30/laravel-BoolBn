@@ -39,6 +39,7 @@ class ApartmentController extends Controller
     {
         $apartment = new Apartment();
         $services = Service::all();
+        
 
         return view('admin.apartments.form', compact('apartment', 'services'));
     }
@@ -52,16 +53,32 @@ class ApartmentController extends Controller
     public function store(Request $request)
     {
         $data = $this->validation($request->all());
+        
 
-         if(Arr::exists($data, 'link')) {
+         if(Arr::exists($data, 'image')) {
             $path = Storage::put('uploads/apartments', $data['image']);
             $data['image'] = $path;
         }
 
-        $apartment = new Apartment();
-        $apartment->fill($data);
-        $apartment->save();
+         $user = Auth::user();
+         $data[ 'user_id'] = $user->id;
 
+        // $apartment = new Apartment();
+        
+        // $apartment->fill($data);
+        // dd($data);
+        // $apartment->save();
+        // dd($data);
+
+        // if(Arr::exists($data, "services")) $apartment->services()->attach($data["services"]);
+        $apartment = Apartment::create($data);
+        if (Arr::exists ($data, 'services')) {
+
+            foreach ($data['services'] as $service) {
+                $apartment->services()->attach($service);
+            }
+        }
+        // dd($apartment);
         return redirect()->route('admin.apartments.show', $apartment);
     }
 
@@ -85,7 +102,8 @@ class ApartmentController extends Controller
     public function edit(Apartment $apartment)
     {
         $services = Service::all();
-        return view('admin.apartments.form', compact('apartment', 'services'));
+        $apartment_services = $apartment->services->pluck('id')->toArray();
+        return view('admin.apartments.form', compact('apartment', 'services', 'apartment_services'));
     }
 
     /**
@@ -106,6 +124,12 @@ class ApartmentController extends Controller
         }
 
         $apartment->update($data);
+
+        if(Arr::exists($data, "services")) 
+            $apartment->services()->sync($data["services"]);
+        else 
+            $apartment->services()->detach();
+
         
         return redirect()->route('admin.apartments.show', $apartment);
     }
@@ -172,4 +196,5 @@ class ApartmentController extends Controller
 
         return $validator;
     }
+
 }

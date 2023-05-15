@@ -12,7 +12,7 @@
                 {{ $apartment->id ? 'Modifica appartamento - ' . $apartment->title : 'Aggiungi un nuovo appartamento' }}
             </h1>
 
-            
+
 
             @if (session('message_content'))
                 <div class="alert alert-{{ session('message_type') ? session('message_type') : 'success' }} mt-4">
@@ -22,15 +22,15 @@
         </div>
 
         @if ($apartment->id)
-            <form id="form" action="{{ route('admin.apartments.update', $apartment) }}" enctype="multipart/form-data" method="POST"
-                class="row gy-3">
+            <form id="form" action="{{ route('admin.apartments.update', $apartment) }}" enctype="multipart/form-data"
+                method="POST" class="row gy-3">
                 @method('put')
             @else
-                <form id="form" action="{{ route('admin.apartments.store') }}" enctype="multipart/form-data" method="POST"
-                    class="gy-3">
+                <form id="myForm" action="{{ route('admin.apartments.store') }}" enctype="multipart/form-data"
+                    method="POST" class="gy-3">
         @endif
-
         @csrf
+
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">
@@ -46,9 +46,8 @@
                 <div class="mb-3">
                     <label for="address" class="form-label">Indirizzo completo</label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
-                        name="address" value="{{ old('address') ?? $apartment->address }}" id="address" 
-                        placeholder="Esempio: Via Marmorata, 100, Roma (RM), Italia"
-                        maxlength="255">
+                        name="address" value="{{ old('address') ?? $apartment->address }}" id="address"
+                        placeholder="Esempio: Via Marmorata, 100, Roma (RM), Italia" maxlength="255">
                     @error('address')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -160,7 +159,7 @@
                         <input type="text" id="latitude" name="latitude" value="{{ old('latitude') ?? $apartment->latitude }}">
                         <input type="text" id="longitude" name="longitude" value="{{ old('longitude') ?? $apartment->longitude }}">
                     </div> --}}
-                    
+
                 </div>
             </div>
 
@@ -178,7 +177,23 @@
                 </div>
                 {{-- IMG PREVIEW --}}
                 <img src="{{ $apartment->getImageUri() }}" alt="" class="img-fluid mb-2" id="image-preview">
+                <div>
+
+                    {{-- SERVICES CHECKBOXES --}}
+                    @foreach ($services as $service)
+                        <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
+                            name="services[]" class="services form-check-control"
+                            @if (in_array($service->id, old('services', $apartment_services ?? []))) checked @endif>
+                        <label for="service-{{ $service->id }}">
+                            <i class="{{ $service->icon }}"></i>
+                            <span>{{ $service->name }}</span>
+                        </label>
+                        <br>
+                    @endforeach
+                </div>
+
             </div>
+
         </div>
 
         <div class="col-md-6">
@@ -247,23 +262,23 @@
                         // longitudeEl.value = res.data.results[0].position.lon;
                         console.log(res.data.results[0].position.lon + ' lon');
 
-                    //     hiddenElements.forEach(suggestion => {
-                    //         hiddenElementsList +=
-                    //         `<li class="suggestion-element border-top p-2">${suggestion}</li>`;
-                    //         console.log(hiddenElementsList);
-                    //     })
-                    //     hiddenListEl.innerHTML = hiddenElementsList;
-                    //     const suggestionElements = document.querySelectorAll('.suggestion-element');
-                    //     suggestionElements.forEach(element => {
-                    //         element.addEventListener('click', () => {
-                    //             addressEl.value = element.innerText;
-                    //             hiddenListEl.classList.add('d-none');
-                    //         })
-                    //     })
-                    //     if (submit) {
-                    //         if (hiddenElements.includes(addressEl.value)) form.submit();
-                    //         // else alert.classList.remove('d-none') & suggestionsField.classList.add('d-none');
-                    //     }
+                        //     hiddenElements.forEach(suggestion => {
+                        //         hiddenElementsList +=
+                        //         `<li class="suggestion-element border-top p-2">${suggestion}</li>`;
+                        //         console.log(hiddenElementsList);
+                        //     })
+                        //     hiddenListEl.innerHTML = hiddenElementsList;
+                        //     const suggestionElements = document.querySelectorAll('.suggestion-element');
+                        //     suggestionElements.forEach(element => {
+                        //         element.addEventListener('click', () => {
+                        //             addressEl.value = element.innerText;
+                        //             hiddenListEl.classList.add('d-none');
+                        //         })
+                        //     })
+                        //     if (submit) {
+                        //         if (hiddenElements.includes(addressEl.value)) form.submit();
+                        //         // else alert.classList.remove('d-none') & suggestionsField.classList.add('d-none');
+                        //     }
 
                     })
             } else if (submit) form.submit();
@@ -276,9 +291,20 @@
 
         window.addEventListener('click', () => hiddenListEl.classList.add('d-none'));
     </script>
+    {{-- <script>
+        var checkboxes = document.querySelectorAll('.services');
+        var valoriSelezionati = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                valoriSelezionati.push(checkboxes[i].value);
+            }
+        }
+        console.log(valoriSelezionati);
+    </script> --}}
+
 @endsection
 
-@section('modals')
+{{-- @section('modals')
     @foreach ($services as $service)
         <div class="modal fade" id="add-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -292,22 +318,30 @@
                     </div>
                     <div class="modal-body">
                         @foreach ($services as $service)
-                            <input type="checkbox" id="service{{ $service->id }}" value="{{ $service->id }}"
-                                name="services[]" class="form-check-control @error('services') is-invalid @enderror p-0 "
-                                @if (in_array($service->id, old($service->id, $apartment_services ?? []))) checked @endif>
-                            <label for="service{{ $service->id }}">
+                            <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
+                                name="services[]" class="services"
+                                class="form-check-control" @if (in_array($service->id, old('services', $apartment_services ?? []))) checked @endif>
+                            <label for="service-{{ $service->id }}">
                                 <i class="{{ $service->icon }}"></i>
-                                {{ $service->name }}
+                                <span>{{ $service->name }}</span>
                             </label>
                             <br>
                         @endforeach
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                        <button type="button" class="btn btn-primary">Aggiungi</button>
+                        <button id="saveModalButton" type="submit" class="btn btn-primary">Aggiungi</button>
+                        <form action="{{ route('admin.apartments.update', $service) }}" method="POST">
+                            @csrf
+                            @method('put')
+
+                            <button class="btn btn-success">
+                                Aggiungi
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     @endforeach
-@endsection
+@endsection --}}
