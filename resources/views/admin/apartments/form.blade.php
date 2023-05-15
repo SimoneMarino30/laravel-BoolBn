@@ -357,7 +357,3 @@
     </script>
 
 @endsection
-
-@section('modals')
-
-@endsection
