@@ -154,7 +154,7 @@ class ApartmentController extends Controller
             'mq' => 'required|integer',
             'price' => 'required|numeric|max:9999.99',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:10240',
             'services' =>  'nullable|exists:services,id'
             
         ],
@@ -187,6 +187,7 @@ class ApartmentController extends Controller
 
             'image.image' => 'devi caricare un\' immagine',
             'image.mimes' => 'le estensioni accettate sono: jpg, png, jpeg',
+            'image.max' => 'la grandezza massima dell\' immagine è 10MB',
 
             'services.exists' => 'I servizi selezionati non sono validi'
 
