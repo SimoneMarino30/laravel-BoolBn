@@ -33,8 +33,8 @@
                             <td>{{ $apartment->price }} €</td>
                             <td>{{ $apartment->address }}</td>
                             <td>
-                                <span class="{{$apartment->visibility ? 'text-success' : 'text-danger'}}">
-                                    {!!$apartment->getIconHTML()!!}
+                                <span class="{{ $apartment->visibility ? 'text-success' : 'text-danger' }}">
+                                    {!! $apartment->getIconHTML() !!}
                                 </span>
                             </td>
                             <td>
@@ -51,6 +51,8 @@
                                 <a href="{{ route('admin.apartments.edit', $apartment) }}">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
+                                <button class="bi bi-trash3-fill text-danger btn-trash" data-bs-toggle="modal"
+                                    data-bs-target="#delete-modal-{{ $apartment->id }}"></button>
                             </td>
                         </tr>
                     @empty

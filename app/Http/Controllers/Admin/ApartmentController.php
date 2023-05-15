@@ -63,22 +63,16 @@ class ApartmentController extends Controller
          $user = Auth::user();
          $data[ 'user_id'] = $user->id;
 
-        // $apartment = new Apartment();
+        $apartment = new Apartment();
         
-        // $apartment->fill($data);
+        $apartment->fill($data);
         // dd($data);
-        // $apartment->save();
+        $apartment->save();
         // dd($data);
 
-        // if(Arr::exists($data, "services")) $apartment->services()->attach($data["services"]);
-        $apartment = Apartment::create($data);
-        if (Arr::exists ($data, 'services')) {
-
-            foreach ($data['services'] as $service) {
-                $apartment->services()->attach($service);
-            }
-        }
-        // dd($apartment);
+        if(Arr::exists($data, "services")) $apartment->services()->attach($data["services"]);
+        
+        // dd($data);
         return redirect()->route('admin.apartments.show', $apartment);
     }
 
@@ -142,7 +136,9 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        //
+        if($apartment->image) Storage::delete($apartment->image);
+        $apartment->delete();
+        return redirect()->route('admin.apartments.index');
     }
 
     private function validation($data) 
@@ -159,6 +155,7 @@ class ApartmentController extends Controller
             'price' => 'required|numeric|max:9999.99',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,png,jpeg',
+            'services' =>  'nullable|exists:services,id'
             
         ],
         [
@@ -190,6 +187,8 @@ class ApartmentController extends Controller
 
             'image.image' => 'devi caricare un\' immagine',
             'image.mimes' => 'le estensioni accettate sono: jpg, png, jpeg',
+
+            'services.exists' => 'I servizi selezionati non sono validi'
 
 
         ])->validate();
