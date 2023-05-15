@@ -36,8 +36,8 @@
                     <figcaption>
                         <p class="text-muted text-secondary m-0">
                             <strong>Stato:</strong>
-                            <span class="{{$apartment->is_published ? 'text-success' : 'text-danger'}}">
-                                {{$apartment->is_published ? 'Pubblicato' : 'Da pubblicare'}}
+                            <span class="{{$apartment->visibility ? 'text-success' : 'text-danger'}}">
+                                {{$apartment->visibility ? 'Pubblicato' : 'Da pubblicare'}}
                             </span>
                         </p>
                     </figcaption>
@@ -97,7 +97,6 @@
                     <strong class="text-center">Descrizione:</strong>
                     <br>
                     {{$apartment->description}}
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore consequatur quam nam laboriosam mollitia asperiores! Exercitationem quis a quasi quibusdam nesciunt vel libero reprehenderit magni nisi aliquid nihil deserunt reiciendis excepturi accusamus doloremque dolorum blanditiis aspernatur error veniam dolore ab, accusantium sunt. Nulla ratione pariatur at? Accusamus dicta veritatis voluptate hic expedita! Optio laboriosam quis, nobis voluptatem quidem eaque, totam officia rerum rem blanditiis, architecto quo nesciunt impedit cupiditate. Recusandae beatae est deleniti placeat commodi sit ducimus quae nemo saepe cumque, quas, unde corrupti aperiam, officia odio eum laborum sint quisquam nesciunt. Exercitationem cumque quia perferendis adipisci, aspernatur laboriosam dignissimos dolor suscipit ipsam! Ex aut atque officia rem quaerat at deserunt officiis. Eius eveniet dignissimos illum vel aut debitis nihil? Dolor voluptatibus similique praesentium non excepturi consectetur a nam repudiandae, eos tempora eum mollitia ipsam earum nulla illo accusamus veniam sapiente error labore, quasi deleniti officiis culpa quibusdam? Distinctio quidem necessitatibus in aliquam iure impedit molestiae? Ab minima ad ratione sit veritatis modi, recusandae porro accusantium earum explicabo debitis velit, sunt beatae? Repudiandae iusto in vel voluptatibus laudantium eveniet voluptas nobis sed nesciunt ullam a sequi ea, est ducimus quaerat, illo non quia. Eius ducimus maxime repellendus laudantium, ut explicabo illo vel excepturi in pariatur omnis dolorum rem sequi? Eius, ad pariatur cum accusantium ipsum natus maxime unde commodi officiis cupiditate quam veniam delectus impedit expedita voluptates, perspiciatis est provident qui molestiae? Ex, facere! Dolore, laborum architecto recusandae quaerat nobis possimus sunt voluptates sapiente nesciunt eligendi? Maxime officia, inventore iusto rerum placeat facere magnam alias suscipit exercitationem expedita laudantium reiciendis voluptas a doloremque culpa autem accusamus explicabo incidunt optio debitis natus voluptate ad repudiandae? Recusandae, sint. Nesciunt nobis eos sint atque ipsam at temporibus, odio dolorem, reiciendis doloremque numquam esse exercitationem placeat saepe earum consequatur laudantium, illum consequuntur similique. Unde.
                 </p>
             </div>
 
