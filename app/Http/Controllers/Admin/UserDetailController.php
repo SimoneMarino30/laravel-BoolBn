@@ -1,8 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+
+// MODELS
 use App\Models\UserDetail;
+
 use Illuminate\Http\Request;
 
 class UserDetailController extends Controller

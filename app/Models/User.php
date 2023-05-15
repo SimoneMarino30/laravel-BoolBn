@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        // 'name',
         'email',
         'password',
     ];
@@ -42,6 +42,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    // * RELAZIONI
+    
+    // Relazione con tabella apartments
+    public function apartments(){
+        return $this->hasMany(Apartment::class);
+    }
+    
+    // Relazione con tabella user_details
+    public function user_detail(){
+        return $this->hasOne(UserDetail::class);
+    }
+
+    // * MUTATORS
+    
     // Creo un Mutator per "hashare" la password ogni volta che ne creo una
     protected function setPasswordAttribute($value) {
         $this->attributes['password'] = bcrypt($value);

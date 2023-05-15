@@ -18,6 +18,12 @@ class Apartment extends Model
     
     // * RELAZIONI
 
+    // Relazione con tabella users
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     // Relazione con tabella services
     public function services() {
         return $this->belongsToMany(Service::class);
