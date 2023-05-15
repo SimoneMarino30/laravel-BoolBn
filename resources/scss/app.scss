@@ -18,3 +18,24 @@ a {
     padding: 0;
     border: none;
 }
+
+.table-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+ul#services_list {
+    list-style: none;
+    padding-left: 0;
+}
+
+form {
+    #image_preview_content {
+        img {
+            min-width: 300px;
+            height: 300px;
+            object-fit: cover;
+        }
+    }
+}
