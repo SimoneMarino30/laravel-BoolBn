@@ -151,6 +151,8 @@ class ApartmentController extends Controller
             [
             'title' => 'required|string|max:100',
             'address' => 'required|string',
+            'latitude' => 'nullable|string|max:100',
+            'longitude' => 'nullable|string|max:100',
             'rooms' => 'required|integer| max:10',
             'beds' => 'required|integer|max:20',
             'bathrooms' => 'required|integer|max:8',
@@ -168,6 +170,12 @@ class ApartmentController extends Controller
 
             'address.required' => 'l\' indirizzo è obbligatorio',
             'address.string' => 'l\' indirizzo deve essere una stringa',
+
+            'latitude.string' => 'la latitudine deve essere una stringa',
+            'latitude.max' => 'la latitudine deve avere al massimo 100 catteri',
+
+            'longitude.string' => 'la longitudine deve essere una stringa',
+            'longitude.max' => 'la longitudine deve avere al massimo 100 catteri',
 
             'rooms.required' => 'il numero di stanze è obbligatorio',
             'rooms.integer' => 'il numero di stanze deve essere un numero',

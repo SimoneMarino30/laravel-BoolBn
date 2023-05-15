@@ -53,7 +53,7 @@
                         </div>
                     @enderror
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 position-relative">
                     <label for="address" class="form-label">Indirizzo completo</label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
                         name="address" value="{{ old('address') ?? $apartment->address }}" id="address"
@@ -64,7 +64,7 @@
                         </div>
                     @enderror
                     {{-- Lista invisibile --}}
-                    <div id="hidden_list" class="d-none">
+                    <div id="hidden_list" class="card position-absolute w-100 radius d-none">
                         <ul class="list">
 
                         </ul>
@@ -225,10 +225,10 @@
                     
 
                     {{-- ! INPUT INVISIBILI PER COORDINATE --}}
-                    {{-- <div class="d-none">
-                        <input type="text" id="latitude" name="latitude" value="{{ old('latitude') ?? $apartment->latitude }}">
-                        <input type="text" id="longitude" name="longitude" value="{{ old('longitude') ?? $apartment->longitude }}">
-                    </div> --}}
+                    <div class="d-none">
+                        <input type="text" id="latitude" name="latitude">
+                        <input type="text" id="longitude" name="longitude">
+                    </div>
 
                 </div>
             </div>
@@ -290,66 +290,103 @@
 
     {{-- * Coordinates with tomtom --}}
     <script>
+        // VARIABILI
         const apiKey = 'VTS7KTu4nrOLxN010rCYu364QXAVRCfK';
 
-        const formEl = document.getElementById('form');
-        const addressEl = document.getElementById('address');
-        const hiddenListEl = document.getElementById('hidden_list');
+        const search = document.getElementById('address');
+        const menuAutoComplete = document.getElementById('hidden_list');
+        const menuAutoCompleteClass = menuAutoComplete.classList;
+        const ulList = document.querySelector('ul.list');
+        const latitude = document.getElementById('latitude');
+        const longitude = document.getElementById('longitude');
 
-        const latitudeEl = document.getElementById('latitude');
-        const longitudeEl = document.getElementById('longitude');
+        // All'input dell' #address
+        search.addEventListener('input', function() {
+            // se l'input dell'indirizzo non è vuoto
+            if (search.value != '')
 
-        let hiddenElements = [];
+            // Faccio chiamata API
+            fetchResults(search.value);
 
-        const fetchApiSearch = (submit = false) => {
-            if (addressEl.value) {
-                if (!submit) {
-                    hiddenListEl.classList.remove('d-none');
-                    hiddenListEl.scrollTo(0, 0);
-                }
-                axios.get(
-                        `https://api.tomtom.com/search/2/search/${addressEl.value}.json?key=${apiKey}`
-                    )
-                    .then(res => {
-                        hiddenElements = [];
-                        let hiddenElementsList = '';
-                        console.log(res.data.results);
-                        res.data.results.forEach(result => {
-                            hiddenElements.push(result.address.freeformAddress);
-                        });
-                        // latitudeEl.value = res.data.results[0].position.lat;
-                        console.log(res.data.results[0].position.lat + ' lat');
-                        // longitudeEl.value = res.data.results[0].position.lon;
-                        console.log(res.data.results[0].position.lon + ' lon');
+            // Gestisco la lista che si autocompleta
+            addRemoveClass();
 
-                        //     hiddenElements.forEach(suggestion => {
-                        //         hiddenElementsList +=
-                        //         `<li class="suggestion-element border-top p-2">${suggestion}</li>`;
-                        //         console.log(hiddenElementsList);
-                        //     })
-                        //     hiddenListEl.innerHTML = hiddenElementsList;
-                        //     const suggestionElements = document.querySelectorAll('.suggestion-element');
-                        //     suggestionElements.forEach(element => {
-                        //         element.addEventListener('click', () => {
-                        //             addressEl.value = element.innerText;
-                        //             hiddenListEl.classList.add('d-none');
-                        //         })
-                        //     })
-                        //     if (submit) {
-                        //         if (hiddenElements.includes(addressEl.value)) form.submit();
-                        //         // else alert.classList.remove('d-none') & suggestionsField.classList.add('d-none');
-                        //     }
-
-                    })
-            } else if (submit) form.submit();
-        }
-        form.addEventListener('submit', (e) => {
-            console.log('ciaaaaaao');
-            e.preventDefault();
-            fetchApiSearch(true);
         })
 
-        window.addEventListener('click', () => hiddenListEl.classList.add('d-none'));
+        /**
+         * Funzione che crea una lista che si autocompila, a seconda del valore iniziale dell'input #address(se contiene o meno un value)
+         */
+        function addRemoveClass() {
+            console.log(menuAutoCompleteClass);
+            if (search.value == '')
+                menuAutoCompleteClass.add('d-none');
+            else
+                menuAutoCompleteClass.remove('d-none');
+        }
+
+        /**
+         * Funzione che fa una chiamata alle API di TomTomDevelopers, non essendo specificate coordinate e raggio di partenza, la ricerca è globale
+         * 
+         * @param String {inputAddress} Indirizzo da dare come parametro alla funzione
+         */
+        function fetchResults(inputAddress) {
+            fetch(
+                    `https://api.tomtom.com/search/2/search/${inputAddress}.json?key=${apiKey}`
+                )
+                .then(response => response.json())
+                .then(data => {
+
+                    // Recupero Array di oggetti 'results', dove sono presenti tutti gli indirizzi che verranno stampati nella lista
+                    console.log(data.results);
+
+                    ulList.innerHTML = '';
+
+                    // Se arriva il risultato
+                    if (data.results != undefined)
+
+                        // Per ogni risultato
+                        data.results.forEach(function(currentValue, index, array) {
+                            
+                            // Creo un elemento HTML <li> della lista autogenerata
+                            const li = document.createElement('li');
+                            li.append(currentValue.address.freeformAddress);
+
+                            // Cliccando sull'elemento della lista autogenerata
+                            li.addEventListener('click',
+                                () => {
+                                    // Aggiorno campo indirizzo
+                                    search.value = currentValue.address.freeformAddress;
+
+                                    // Faccio scomparire lista indirizzi consigliati
+                                    menuAutoCompleteClass.add('d-none');
+                                    ulList.innerHTML = '';
+
+                                    // Cambio i valori degli input invisibili #latitude e #longitute
+                                    latitude.value = currentValue.position.lat;
+                                    longitude.value = currentValue.position.lon;
+
+                                    console.log(currentValue.position.lat);
+                                    console.log(currentValue.position.lon);
+                                    console.log(latitude.value, 'lat');
+                                    console.log(longitude.value, 'lon');
+                                }
+                            )
+
+                            // Infine aggiungo alla lista
+                            ulList.appendChild(li);
+                        });
+                });
+        };
+
+        // Verifica se click avviene dentro o fuori dalla lista
+        document.addEventListener('click', function(event) {
+            const isClickInsideMenu = menuAutoComplete.contains(event.target);
+
+            if (!isClickInsideMenu) {
+                menuAutoCompleteClass.add('d-none');
+            }
+        });
+
     </script>
 
 @endsection
