@@ -14,10 +14,11 @@
                 </a>
 
             </div>
-            <table class="table table-dark table-striped table-hover my-5">
+            <table class="table table-dark table-striped table-hover align-middle my-5">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope="col">Anteprima</th>
                         <th scope="col">Appartamento</th>
                         <th scope="col">Prezzo</th>
                         <th scope="col">Indirizzo</th>
@@ -29,6 +30,9 @@
                     @forelse($apartments as $apartment)
                         <tr>
                             <th scope="row">{{ $apartment->id }}</th>
+                            <td>
+                                <img src="{{ $apartment->getImageUri() }}" alt="" class="table-image">
+                            </td>
                             <td>{{ $apartment->title }}</td>
                             <td>{{ $apartment->price }} €</td>
                             <td>{{ $apartment->address }}</td>
