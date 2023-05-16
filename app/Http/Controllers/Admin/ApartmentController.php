@@ -151,12 +151,12 @@ class ApartmentController extends Controller
             [
             'title' => 'required|string|max:100',
             'address' => 'required|string',
-            'latitude' => 'nullable|string|max:100',
-            'longitude' => 'nullable|string|max:100',
-            'rooms' => 'required|integer| max:10',
-            'beds' => 'required|integer|max:20',
-            'bathrooms' => 'required|integer|max:8',
-            'mq' => 'required|integer',
+            'latitude' => 'required|string',
+            'longitude' => 'required|string',
+            'rooms' => 'required|integer| max:10|min:1',
+            'beds' => 'required|integer|max:20|min:1',
+            'bathrooms' => 'required|integer|max:8|min:1',
+            'mq' => 'required|integer|min:20',
             'price' => 'required|numeric|max:9999.99',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,png,jpeg',
@@ -171,26 +171,32 @@ class ApartmentController extends Controller
             'address.required' => 'l\' indirizzo è obbligatorio',
             'address.string' => 'l\' indirizzo deve essere una stringa',
 
+            'latitude.required' => 'l\' indirizzo deve essere completo',
             'latitude.string' => 'la latitudine deve essere una stringa',
             'latitude.max' => 'la latitudine deve avere al massimo 100 catteri',
 
+            'longitude.required' => '',
             'longitude.string' => 'la longitudine deve essere una stringa',
             'longitude.max' => 'la longitudine deve avere al massimo 100 catteri',
 
             'rooms.required' => 'il numero di stanze è obbligatorio',
             'rooms.integer' => 'il numero di stanze deve essere un numero',
             'rooms.max' => 'le stanze non possono essere maggiori di 10',
+            'rooms.min' => 'le stanze non possono essere minori di 1',
 
             'beds.required' => 'il numero di letti è obbligatorio',
             'beds.integer' => 'il numero di letti deve essere un numero',
             'beds.max' => 'i letti non possono essere maggiori di 20',
+            'beds.min' => 'i letti non possono essere minori di 1',
 
             'bathrooms.required' => 'il numero di bagni è obbligatorio',
             'bathrooms.integer' => 'il numero di bagni deve essere un numero',
             'bathrooms.max' => 'i bagni non possono essere maggiori di 8',
+            'bathrooms.min' => 'i bagni non possono essere minori di 1',
 
             'mq.required' => 'il numero di mq è obbligatorio',
             'mq.integer' => 'i mq devono essere un numero',
+            'mq.min' => 'i mq non possono essere minori di 20',
 
             'price.required' => 'il prezzo è obbligatorio',
             'price.numeric' => 'il prezzo deve essere un numero',
@@ -204,7 +210,6 @@ class ApartmentController extends Controller
         
 
             'services.exists' => 'I servizi selezionati non sono validi'
-
 
         ])->validate();
 
