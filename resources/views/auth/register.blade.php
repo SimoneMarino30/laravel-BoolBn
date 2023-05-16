@@ -3,11 +3,14 @@
 @section('page-name', 'Sign-in')
 
 @section('content')
+<div class="container pt-5">
+    @include('layouts.partials._validation')
+</div>
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card mt-5">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Registrati') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -60,10 +63,14 @@
 
                     {{-- * EMAIL --}}
                         <div class="mb-4 row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo E-Mail') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo E-Mail *') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" required oninvalid="myValidate()">
+
+                                {{-- ! ALERT ERRORE CLIENT-SIDE --}}
+                                <span id="email_invalid" class="invalid-feedback fw-bold" role="alert">
+                                </span>
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -76,10 +83,17 @@
 
                         {{-- * PASSWORD --}}
                         <div class="mb-4 row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password *') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password"
+                                required
+                                minlength="8"
+                                oninvalid="myValidate()">
+
+                                {{-- ! ALERT ERRORE CLIENT-SIDE --}}
+                                <span id="pwd_invalid" class="invalid-feedback fw-bold" role="alert">
+                                </span>
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -90,16 +104,26 @@
                         </div>
 
                         <div class="mb-4 row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password *') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password" required minlength="8" oninvalid="myValidate()">
+                            </div>
+
+                            {{-- ! ALERT ERRORE CLIENT-SIDE --}}
+                            <span id="pwd_confirm_invalid" class="invalid-feedback fw-bold" role="alert">
+                            </span>
+                        </div>
+
+                        <div class="mb-4 row">
+                            <div class="col fst-italic">
+                                I campi contrassegnati con <span class="fw-bold">*</span> sono obbligatori.
                             </div>
                         </div>
 
-                        <div class="mb-4 row mb-0">
+                        <div class="mb-4 row">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="send_button">
                                     {{ __('Registrati') }}
                                 </button>
                             </div>
@@ -110,4 +134,56 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    // DA IMPLEMENTARE SELEZIONANDO TUTTI I CAMPI CON ATTRIBUTO 'required'
+
+    const emailEl = document.getElementById('email');
+    const pwdEl = document.getElementById('password');
+    const pwdConfirmEl = document.getElementById('password-confirm');
+
+    const emailInvalidEl = document.getElementById('email_invalid');
+    const pwdInvalidEl = document.getElementById('pwd_invalid');
+    const pwdConfirmInvalidEl = document.getElementById('pwd_confirm_invalid');
+
+    const errorMessage = 'Campo obbligatorio';
+
+    const errorPwdLengthMessage = 'La password deve essere di almeno 8 caratteri';
+
+   function myValidate() {
+        // CONTROLLI PER email
+        if(emailEl.value == '') {
+            emailEl.classList.add('is-invalid');
+            emailInvalidEl.innerHTML = errorMessage;
+        } else {
+            emailEl.classList.remove('is-invalid');
+            emailInvalidEl.innerHTML = '';
+        }
+
+        // CONTROLLI PER password
+        if (pwdEl.value == ''){
+            pwdEl.classList.add('is-invalid');
+            pwdInvalidEl.innerHTML = errorMessage;
+        } else if(pwdEl.value.length < 8) {
+            pwdEl.classList.add('is-invalid');
+            pwdInvalidEl.innerHTML = errorPwdLengthMessage;
+        } else {
+            pwdEl.classList.remove('is-invalid');
+            pwdInvalidEl.innerHTML = '';
+        }
+
+        // CONTROLLI PER conferma password
+        if(pwdConfirmEl.value == '') {
+            pwdConfirmEl.classList.add('is-invalid');
+            pwdConfirmInvalidEl.innerHTML = errorMessage;
+        } else {
+            pwdConfirmEl.classList.remove('is-invalid');
+            pwdConfirmInvalidEl.innerHTML = '';
+        }
+   };
+
+</script>
+
 @endsection

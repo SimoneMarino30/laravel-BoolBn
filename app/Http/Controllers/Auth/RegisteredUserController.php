@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
             'name' => ['nullable', 'string', 'max:100'],
             'surname' => ['nullable', 'string', 'max:100'],
             'date_of_birth' => ['nullable', 'date_format:Y-m-d'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ], [
             'name.string' => 'Il nome deve essere una stringa',
@@ -49,6 +49,10 @@ class RegisteredUserController extends Controller
             'email.email' => 'L\'email deve essere un\'indirizzo email valido',
             'email.max' => 'L\'email può contenere al massimo 255 caratteri',
             'email.unique' => 'Esiste già questo indirizzo email',
+
+            'password.required' => 'La password è obbligatoria',
+            'password.min' => 'La password deve essere di almeno 8 caratteri',
+            'password.confirmed' => 'La password non corrisponde',
 
             'surname.string' => 'Il cognome deve essere una stringa',
             'surname.max' => 'Il cognome puù contenere massimo 100 caratteri',
@@ -62,7 +66,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             // 'name' => $request->name,
             'email' => $validated_data['email'],
-            'password' => Hash::make($validated_data['password']),
+            'password' => $validated_data['password'],
         ]);
 
         // Creo UserDetail con dati personali sfruttando la relazione tra le due tabelle
