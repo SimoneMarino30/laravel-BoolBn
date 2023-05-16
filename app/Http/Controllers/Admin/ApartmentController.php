@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 // MODELS
 use App\Models\Apartment;
 use App\Models\Service;
-
+use App\Models\User;
+use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,7 @@ class ApartmentController extends Controller
         $user = Auth::user();
 
         $apartments = Apartment::where('user_id', $user->id)->get();
-
+        
         return view('admin.apartments.index', compact('apartments'));
     }
 
@@ -83,8 +84,16 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
-    {
+    public function show(Apartment $apartment, UserDetail $user_detail, Service $service)
+    {  
+        $id_appartamento = $apartment->user_id;
+        $id_utente = $user_detail->name;
+        
+        /* if($user_detail->user_id === $apartment->user_id){
+           $this->authorize('view', $apartment);  
+        }   */
+        dd($apartment, $user_detail, $service);
+       
         return view('admin.apartments.show', compact('apartment'));
     }
 
@@ -96,6 +105,7 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
+        
         $services = Service::all();
         $apartment_services = $apartment->services->pluck('id')->toArray();
         return view('admin.apartments.form', compact('apartment', 'services', 'apartment_services'));
@@ -110,6 +120,7 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
+      
         $data = $this->validation($request->all());
 
             if(Arr::exists($data, 'image')) {

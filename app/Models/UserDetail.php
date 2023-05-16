@@ -14,7 +14,7 @@ class UserDetail extends Model
         'name',
         'surname',
         'date_of_birth',
-        'profile_img',
+        'profile_img'
     ];
 
     // * RELAZIONI
