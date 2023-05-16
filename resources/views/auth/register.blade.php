@@ -66,11 +66,10 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo E-Mail *') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" required oninvalid="myCustomFunction()">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" required oninvalid="myValidate()">
 
                                 {{-- ! ALERT ERRORE CLIENT-SIDE --}}
-                                <span class="invalid-feedback" role="alert" id="box-error">
-                                    <strong>Email obbligatoria</strong>
+                                <span id="email_invalid" class="invalid-feedback fw-bold" role="alert">
                                 </span>
 
                                 @error('email')
@@ -90,11 +89,10 @@
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password"
                                 required
                                 minlength="8"
-                                oninvalid="myCustomFunction()">
+                                oninvalid="myValidate()">
 
                                 {{-- ! ALERT ERRORE CLIENT-SIDE --}}
-                                <span class="invalid-feedback" role="alert" id="box-error">
-                                    <strong>Password obbligatoria</strong>
+                                <span id="pwd_invalid" class="invalid-feedback fw-bold" role="alert">
                                 </span>
 
                                 @error('password')
@@ -109,8 +107,12 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password *') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password" required minlength="8">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password" required minlength="8" oninvalid="myValidate()">
                             </div>
+
+                            {{-- ! ALERT ERRORE CLIENT-SIDE --}}
+                            <span id="pwd_confirm_invalid" class="invalid-feedback fw-bold" role="alert">
+                            </span>
                         </div>
 
                         <div class="mb-4 row">
@@ -121,7 +123,7 @@
 
                         <div class="mb-4 row">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="send_button">
                                     {{ __('Registrati') }}
                                 </button>
                             </div>
@@ -140,21 +142,40 @@
 
     const emailEl = document.getElementById('email');
     const pwdEl = document.getElementById('password');
-    const boxEl = document.getElementById('box-error');
+    const pwdConfirmEl = document.getElementById('password-confirm');
 
-   function myCustomFunction() {
+    const emailInvalidEl = document.getElementById('email_invalid');
+    const pwdInvalidEl = document.getElementById('pwd_invalid');
+    const pwdConfirmInvalidEl = document.getElementById('pwd_confirm_invalid');
+
+    const errorMessage = 'Campo obbligatorio';
+
+   function myValidate() {
         if(emailEl.value == '') {
             emailEl.classList.add('is-invalid');
+            emailInvalidEl.innerHTML = errorMessage;
         } else {
             emailEl.classList.remove('is-invalid');
+            emailInvalidEl.innerHTML = '';
         }
 
         if (pwdEl.value == ''){
             pwdEl.classList.add('is-invalid');
+            pwdInvalidEl.innerHTML = errorMessage;
         } else {
             pwdEl.classList.remove('is-invalid');
+            pwdInvalidEl.innerHTML = '';
         }
-   }
+
+        if(pwdConfirmEl.value == '') {
+            pwdConfirmEl.classList.add('is-invalid');
+            pwdConfirmInvalidEl.innerHTML = errorMessage;
+        } else {
+            pwdConfirmEl.classList.remove('is-invalid');
+            pwdConfirmInvalidEl.innerHTML = '';
+        }
+   };
+
 </script>
 
 @endsection
