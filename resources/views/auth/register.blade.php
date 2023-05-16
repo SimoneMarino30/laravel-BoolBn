@@ -150,7 +150,10 @@
 
     const errorMessage = 'Campo obbligatorio';
 
+    const errorPwdLengthMessage = 'La password deve essere di almeno 8 caratteri';
+
    function myValidate() {
+        // CONTROLLI PER email
         if(emailEl.value == '') {
             emailEl.classList.add('is-invalid');
             emailInvalidEl.innerHTML = errorMessage;
@@ -159,14 +162,19 @@
             emailInvalidEl.innerHTML = '';
         }
 
+        // CONTROLLI PER password
         if (pwdEl.value == ''){
             pwdEl.classList.add('is-invalid');
             pwdInvalidEl.innerHTML = errorMessage;
+        } else if(pwdEl.value.length < 8) {
+            pwdEl.classList.add('is-invalid');
+            pwdInvalidEl.innerHTML = errorPwdLengthMessage;
         } else {
             pwdEl.classList.remove('is-invalid');
             pwdInvalidEl.innerHTML = '';
         }
 
+        // CONTROLLI PER conferma password
         if(pwdConfirmEl.value == '') {
             pwdConfirmEl.classList.add('is-invalid');
             pwdConfirmInvalidEl.innerHTML = errorMessage;
