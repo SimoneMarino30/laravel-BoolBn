@@ -62,7 +62,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             // 'name' => $request->name,
             'email' => $validated_data['email'],
-            'password' => Hash::make($validated_data['password']),
+            'password' => $validated_data['password'],
         ]);
 
         // Creo UserDetail con dati personali sfruttando la relazione tra le due tabelle
