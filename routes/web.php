@@ -6,6 +6,7 @@
 // * Admin
 use App\Http\Controllers\Admin\ApartmentController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\UserDetailController;
 
 use Illuminate\Support\Facades\Route;
@@ -38,14 +39,21 @@ Route::middleware('auth')
     // * Risorsa Apartment
     Route::resource('apartments', ApartmentController::class);
 
-    // * Risorsa Message
-    Route::resource('messages', MessageController::class)->only(['index', 'show']);
+    
+    
+    // * Message softDelete
+    Route::get('messages/trash', [MessageController::class, 'trash'])->name('messages.trash');
+    Route::put('messages/{message}/restore', [MessageController::class, 'restore'])->name('messages.restore');
+    Route::delete('messages/{message}/forcedelete', [MessageController::class, 'forcedelete'])->name('messages.forcedelete');
 
+    // * Risorsa Message
+    Route::resource('messages', MessageController::class)->only(['index', 'show', 'destroy']);
+    
     // * Risorsa UserDetail
     Route::resource('user_details', UserDetailController::class)->only(['update', 'edit', 'index']);
 
     // * Risorsa Service
-    Route::resource('services', ServiceController::class)->only('edit');;
+    Route::resource('services', ServiceController::class)->only('edit');
 });
 
 
