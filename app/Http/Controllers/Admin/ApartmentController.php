@@ -161,6 +161,9 @@ class ApartmentController extends Controller
         ->with('message_type', 'danger');
     }
 
+    // * FUNZIONI DI SUPPORTO
+
+    // Funzione per la validazione dei dati
     private function validation($data) 
     {
         $validator = Validator::make(
@@ -231,6 +234,25 @@ class ApartmentController extends Controller
         ])->validate();
 
         return $validator;
+    }
+
+    /**
+     * Delete the image from storage.
+     *
+     * @param  \App\Models\Shoe  $shoe
+     * @return \Illuminate\Http\Response
+     */
+
+    // * Funzione che elimina l'immagine nel form
+    public function deleteimage(Apartment $apartment)
+    {
+        if ($apartment->image) Storage::delete($apartment->image);
+
+        $apartment->image = null;
+        $apartment->save();
+
+        return redirect()->back()->with('message_content', 'Immagine eliminata con successo!')
+            ->with('message_type', 'danger');
     }
 
 }
