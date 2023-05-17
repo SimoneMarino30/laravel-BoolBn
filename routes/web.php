@@ -37,9 +37,12 @@ Route::middleware('auth')
 ->group(function () {
 
     // * Risorsa Apartment
+    
+    // Delete form image
+    Route::delete('apartments/{apartment}/delete-image', [ApartmentController::class, 'deleteimage'])->name('apartments.deleteimage');
+    
     Route::resource('apartments', ApartmentController::class);
 
-    
     
     // * Message softDelete
     Route::get('messages/trash', [MessageController::class, 'trash'])->name('messages.trash');
