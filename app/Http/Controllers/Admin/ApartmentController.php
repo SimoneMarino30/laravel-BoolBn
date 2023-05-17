@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 // MODELS
 use App\Models\Apartment;
 use App\Models\Service;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -26,7 +27,7 @@ class ApartmentController extends Controller
         $user = Auth::user();
 
         $apartments = Apartment::where('user_id', $user->id)->get();
-
+        
         return view('admin.apartments.index', compact('apartments'));
     }
 
@@ -84,9 +85,14 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
-    {
-        return view('admin.apartments.show', compact('apartment'));
+    public function show(Request $request, Apartment $apartment, User $user)
+    {  
+        $user=Auth::user();
+
+         if($user->id === $apartment->user_id){
+           return view('admin.apartments.show', compact('apartment'));
+        }   abort(403, "accesso autorizzato");
+
     }
 
     /**
@@ -95,11 +101,17 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Apartment $apartment)
+    public function edit(Apartment $apartment, User $user)
     {
+        
         $services = Service::all();
         $apartment_services = $apartment->services->pluck('id')->toArray();
-        return view('admin.apartments.form', compact('apartment', 'services', 'apartment_services'));
+         $user=Auth::user();
+
+         if($user->id === $apartment->user_id){
+          return view('admin.apartments.form', compact('apartment', 'services', 'apartment_services'));
+        }   abort(403, "accesso non autorizzato");
+        
     }
 
     /**
@@ -111,6 +123,7 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
+      
         $data = $this->validation($request->all());
 
             if(Arr::exists($data, 'image')) {
