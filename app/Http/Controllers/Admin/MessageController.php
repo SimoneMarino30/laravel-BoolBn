@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Message;
 use App\Models\Apartment;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class MessageController extends Controller
      */
     
     // * Funzione per visualizzare lista messaggi inviati dai visitatori
-    public function index(Request $request, Apartment $apartment)
+    public function index(Request $request, Apartment $apartment, User $user)
     {
         $user = Auth::user();
 
@@ -47,9 +48,25 @@ class MessageController extends Controller
      * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function show(Message $message)
+    public function show(Message $message, Apartment $apartment)
     {
-        return view('admin.messages.show', compact('message'));
+        $user=Auth::user();
+        $myUserId= $user->id; //id utente
+        
+        $myApartments=[]; //gli appartamenti dell'utente
+
+        $apartments = Apartment::where("user_id", $myUserId)->get()->toArray();
+
+        foreach ($apartments as $apartment) {
+            $myApartments[] = $apartment['id'];
+        }
+
+        if(in_array($message->apartment_id, $myApartments)){
+
+                return view('admin.messages.show', compact('message'));
+                
+                } abort(403, "accesso non autorizzato");
+                
     }
 
     /**
