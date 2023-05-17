@@ -26,7 +26,7 @@ class ApartmentController extends Controller
     {
         $user = Auth::user();
 
-        $apartments = Apartment::where('user_id', $user->id)->get();
+        $apartments = Apartment::where('user_id', $user->id)->orderBy('updated_at', 'DESC')->paginate(5);
         
         return view('admin.apartments.index', compact('apartments'));
     }
