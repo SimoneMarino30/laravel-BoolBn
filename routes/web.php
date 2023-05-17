@@ -40,7 +40,12 @@ Route::middleware('auth')
 
     // * Risorsa Message
     Route::resource('messages', MessageController::class)->only(['index', 'show']);
-
+    
+    // softDelete
+    Route::get('projects/trash', [ProjectController::class, 'trash'])->name('projects.trash');
+    Route::put('projects/{project}/restore', [ProjectController::class, 'restore'])->name('projects.restore');
+    Route::delete('projects/{project}/forcedelete', [ProjectController::class, 'forcedelete'])->name('projects.forcedelete');
+    
     // * Risorsa UserDetail
     Route::resource('user_details', UserDetailController::class)->only(['update', 'edit', 'index']);
 
