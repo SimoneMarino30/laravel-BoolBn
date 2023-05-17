@@ -58,7 +58,7 @@
                             <input type="text"
                                 class="form-control @error('address') is-invalid @enderror @error('latitude') is-invalid @enderror"
                                 id="address" name="address" value="{{ old('address') ?? $apartment->address }}"
-                                id="address" placeholder="Esempio: Via Marmorata, 100, Roma (RM), Italia" maxlength="255">
+                                id="address" placeholder="Esempio: Via Marmorata, 100, Roma (RM), Italia" maxlength="255" required>
                             @error('address')
                                 <div class="invalid-feedback">
                                     {{ $message }}

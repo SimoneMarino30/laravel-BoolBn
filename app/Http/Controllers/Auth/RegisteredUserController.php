@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
             'name' => ['nullable', 'string', 'max:100'],
             'surname' => ['nullable', 'string', 'max:100'],
             'date_of_birth' => ['nullable', 'date_format:Y-m-d'],
-            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ], [
             'name.string' => 'Il nome deve essere una stringa',
