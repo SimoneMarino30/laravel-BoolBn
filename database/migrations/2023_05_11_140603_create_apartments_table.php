@@ -31,8 +31,7 @@ return new class extends Migration
             $table->string('longitude', 100);
             $table->float('price', 6,2 )->unsigned();
             $table->string('image', 255)->nullable();
-            // slug unique, nullable solo per prova salvataggio
-            $table->string('slug', 255)->nullable();
+            $table->string('slug', 255)->unique();
             $table->boolean('visibility')->default(1);
             
             $table->timestamps();
