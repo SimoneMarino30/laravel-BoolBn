@@ -40,6 +40,7 @@ class ApartmentController extends Controller
         $apartment = new Apartment();
         $services = Service::all();
         
+        
 
         return view('admin.apartments.form', compact('apartment', 'services'));
     }
@@ -85,6 +86,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
+        
         return view('admin.apartments.show', compact('apartment'));
     }
 
@@ -98,6 +100,9 @@ class ApartmentController extends Controller
     {
         $services = Service::all();
         $apartment_services = $apartment->services->pluck('id')->toArray();
+        
+        // dd($apartment_services);
+        
         return view('admin.apartments.form', compact('apartment', 'services', 'apartment_services'));
     }
 

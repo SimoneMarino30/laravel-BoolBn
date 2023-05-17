@@ -33,11 +33,11 @@
             <div class="card-body">
                 @if ($apartment->id)
                     <form action="{{ route('admin.apartments.update', $apartment) }}" enctype="multipart/form-data"
-                        method="POST" class="row gy-3">
+                        method="POST" class="row gy-3 form-edit" data-modalita="edit">
                         @method('put')
                     @else
                         <form action="{{ route('admin.apartments.store') }}" enctype="multipart/form-data" method="POST"
-                            class="gy-3">
+                            class="gy-3 form-create" data-modalita="create">
                 @endif
                 @csrf
 
@@ -274,8 +274,10 @@
                 </div>
                 </form>
 
-                {{-- * STAMPA SERVIZI AGGIUNTIVI --}}
-                <div id="servicesContainer"></div>
+                {{-- ! CONTAINER STAMPA SERVIZI AGGIUNTIVI --}}
+                <div id="servicesContainer">
+
+                </div>
             </div>
         </div>
 
@@ -402,51 +404,47 @@
         });
     </script>
 
-    {{-- * Stampa icone servizi aggiuntivi nel form --}}
+    {{-- * Stampa icone servizi aggiuntivi nel form create/edit --}}
+
     <script>
-        let hiddenServices = document.getElementById('hidden-services');
-        let servicesList = document.querySelector('ul.services-list')
-        let servicesContainer = document.getElementById('servicesContainer')
-
         let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-        console.log(checkboxes + 'sono io');
+        let servicesContainer = document.getElementById('servicesContainer');
 
-        document.getElementById('checkedServices').addEventListener('click', function() {
-            let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-            servicesContainer.innerHTML = '';
-            {{-- * Creo un array per memorizzare i valori delle checkbox selezionate --}}
-            let servicesPlus = [];
+        // Funzione per aggiungere un servizio al container
+        function addServiceToContainer(service) {
+            let serviceEl = document.createElement('div');
+            serviceEl.innerHTML = `
+            <input type="hidden" name="services[]" value="${service.id}">
+            <i class="${service.icon}" aria-hidden="true"></i>
+            <span>${service.name}</span>
+        `;
+            servicesContainer.appendChild(serviceEl);
+        }
 
-            for (let i = 0; i < checkboxes.length; i++) {
-                let service = {
-                    id: checkboxes[i].value,
-                    name: checkboxes[i].nextElementSibling.querySelector('span').textContent,
-                    icon: checkboxes[i].nextElementSibling.querySelector('i').classList
-                };
-                servicesPlus.push(service);
-            }
-            // console.log(servicesPlus);
-            // console.log(typeof(servicesContainer));
-
-            {{-- * Aggiungo i servizi selezionati al form --}}
-            for (let x = 0; x < servicesPlus.length; x++) {
-                let selectedService = servicesPlus[x];
-                // console.log(selectedService);
-
-                const li = document.createElement('li');
-                li.append(selectedService);
-
-                let serviceEl = document.createElement('div');
-
-                serviceEl.innerHTML = `
-                        <input type="hidden" name="services[]" value="${selectedService.id}">
-                        <i class="${selectedService.icon}" aria-hidden="true"></i>
-                        <span>${selectedService.name}</span>`;
-
-                servicesContainer.appendChild(serviceEl);
-            }
-            // console.log(checkboxes + 'sono io');
+        // Aggiungo i servizi selezionati al container al caricamento della pagina
+        checkboxes.forEach(function(checkbox) {
+            let service = {
+                id: checkbox.value,
+                name: checkbox.nextElementSibling.querySelector('span').textContent,
+                icon: checkbox.nextElementSibling.querySelector('i').classList.value
+            };
+            addServiceToContainer(service);
         });
-        // console.log(typeof(servicesContainer));
+
+        // Event listener per aggiornare il container quando si selezionano/rimuovono servizi
+        document.addEventListener('change', function(event) {
+            if (event.target.matches('input[type="checkbox"]')) {
+                servicesContainer.innerHTML = '';
+                checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                checkboxes.forEach(function(checkbox) {
+                    let service = {
+                        id: checkbox.value,
+                        name: checkbox.nextElementSibling.querySelector('span').textContent,
+                        icon: checkbox.nextElementSibling.querySelector('i').classList.value
+                    };
+                    addServiceToContainer(service);
+                });
+            }
+        });
     </script>
 @endsection
