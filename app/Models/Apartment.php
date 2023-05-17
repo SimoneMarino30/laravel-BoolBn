@@ -23,7 +23,7 @@ class Apartment extends Model
 
     // Relazione con tabella services
     public function services() {
-        return $this->belongsToMany(Service::class);
+        return $this->belongsToMany(Service::class, 'apartment_service');
     }
 
     // Relazione con tabella sponsors
