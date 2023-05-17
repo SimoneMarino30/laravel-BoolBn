@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -35,6 +37,21 @@ class Apartment extends Model
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    // * MUTATORS
+
+    protected function getCreatedAtAttribute($value) {
+        Carbon::setLocale('it');
+        $date_from = Carbon::create($value);
+        $date_now = Carbon::now();
+        return str_replace('prima', 'fa', $date_from->diffForHumans($date_now));
+    }
+
+    protected function getUpdatedAtAttribute($value) {
+        $date_from = Carbon::create($value);
+        $date_now = Carbon::now();
+        return str_replace('prima', 'fa', $date_from->diffForHumans($date_now));
     }
 
      // * GETTER
