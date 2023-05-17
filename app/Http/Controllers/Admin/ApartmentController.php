@@ -68,6 +68,7 @@ class ApartmentController extends Controller
         $apartment->fill($data);
         // dd($data);
         $apartment->visibility = $request->has('visibility') ? 1 : 0;
+        $apartment->slug = Apartment::generateUniqueSlug($apartment->title);
         $apartment->save();
         // dd($data);
 
@@ -120,6 +121,7 @@ class ApartmentController extends Controller
 
         $apartment->fill($data);
         $apartment->visibility = $request->has('visibility') ? 1 : 0;
+        $apartment->slug = Apartment::generateUniqueSlug($apartment->title);
         $apartment->save($data);
 
         if(Arr::exists($data, "services")) 
