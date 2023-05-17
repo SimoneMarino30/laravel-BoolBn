@@ -17,7 +17,21 @@ class ServiceController extends Controller
     {
         $services = Service::all();
 
-        return response()->json($services);
+        if (count($services) > 0)
+            $response = [
+                'success' => true,
+                'code' => 200,
+                'message' => 'OK',
+                'services' => $services
+            ];
+        else
+            $response = [
+                'success' => false,
+                'code' => 404,
+                'message' => 'Non ci sono servizi da visualizzare'
+            ];
+
+        return response()->json($response);
     }
 
     /**
