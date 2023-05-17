@@ -62,10 +62,9 @@
                                     <i class="bi bi-envelope-fill"></i>
                                 </a>
 
-
                                 {{-- Modifica --}}
                                 <a href="{{ route('admin.apartments.edit', $apartment) }}" title="Modifica">
-                                    <i class="bi bi-pencil-square mx-2"></i>
+                                    <i class="bi bi-pencil-square me-2"></i>
                                 </a>
 
                                 {{-- Elimina --}}
@@ -90,9 +89,9 @@
 @section('modals')
     @foreach ($apartments as $apartment)
         <!-- Modal -->
-        <div class="modal fade" id="delete-modal-{{ $apartment->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="delete-modal-{{ $apartment->id }}" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header modal-bg">
                         <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">L'appartamento n°
