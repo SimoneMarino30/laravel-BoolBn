@@ -37,5 +37,16 @@ form {
             height: 300px;
             object-fit: cover;
         }
+
+        #button-delete-apartment-image {
+            cursor: pointer;
+            opacity: 0.3;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+        }
+    }
+    #image_preview_content:hover #button-delete-apartment-image {
+        opacity: 1;
     }
 }
