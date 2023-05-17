@@ -21,12 +21,8 @@
             </div>
         </div>
 
-        <div class="text-center">
-            @if (session('message_content'))
-                <div class="alert alert-{{ session('message_type') ? session('message_type') : 'success' }} mt-4">
-                    {{ session('message_content') }}
-                </div>
-            @endif
+        <div class="container pt-5">
+            @include('layouts.partials._session-message')
         </div>
 
         <div class="card">
@@ -261,9 +257,14 @@
                         </div>
 
                         {{-- IMG PREVIEW --}}
-                        <div id="image_preview_content" class="text-center">
+                        <div id="image_preview_content" class="text-center position-relative">
                             <img src="{{ $apartment->getImageUri() }}" alt="" class="img-fluid mb-2"
                                 id="image-preview">
+                            @if($apartment->image)
+                            <span id="button-delete-apartment-image" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                X
+                            </span>
+                            @endif
                         </div>
 
                         <div class="mt-auto text-end">
@@ -273,6 +274,16 @@
 
                 </div>
                 </form>
+
+                {{-- ! FORM CANCELLAZIONE IMMAGINE --}}
+                @if($apartment->image)
+                {{-- FORM eliminazione image preview --}}
+                <form id="form-delete-apartment-image" action="{{route('admin.apartments.deleteimage', $apartment)}}" method="POST">
+                    @method('delete')
+                    @csrf
+
+                </form>
+                @endif
 
                 {{-- ! CONTAINER STAMPA SERVIZI AGGIUNTIVI --}}
                 <div id="servicesContainer">
@@ -303,6 +314,19 @@
             }
         })
     </script>
+
+    {{-- * Cancellazione immagine caricata --}}
+    @if($apartment->image)
+    <script>
+        const deleteImageButton = document.getElementById('button-delete-apartment-image');
+        const deleteImageForm = document.getElementById('form-delete-apartment-image');
+
+        deleteImageButton.addEventListener(
+            'click', () => {
+                deleteImageForm.submit();
+            });
+    </script>
+    @endif
 
     {{-- * Coordinates with tomtom --}}
     <script>
