@@ -31,7 +31,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 150.00,
-                "image"=> "house-1a.jpg",
+                "image"=> "",
                 "visibility"=> "1",
             ],
             //5c
@@ -47,7 +47,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 300.00,
-                "image"=> "house-5c.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //3c
@@ -63,7 +63,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 190.00,
-                "image"=> "house-3c.jpg",
+                "image"=> "",
                 "visibility"=> "1",
             ],
             //10b
@@ -79,7 +79,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 140.00,
-                "image"=> "house-10b.jpg",
+                "image"=> "",
                 "visibility"=> "1",
             ],
             //9b
@@ -95,7 +95,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 140.00,
-                "image"=> "house-9b.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //1b
@@ -111,7 +111,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 175.00,
-                "image"=> "house-1b.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //1c
@@ -127,7 +127,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 120.00,
-                "image"=> "house-1c.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //2a
@@ -143,7 +143,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 275.00,
-                "image"=> "house-2a.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //2b
@@ -159,7 +159,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 240.00,
-                "image"=> "house-2b.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //2c
@@ -175,7 +175,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 180.00,
-                "image"=> "house-2c.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //3b
@@ -191,7 +191,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 200.00,
-                "image"=> "house-3b.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //4a
@@ -207,7 +207,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 190.00,
-                "image"=> "house-4a.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //3a
@@ -223,7 +223,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 160.00,
-                "image"=> "house-3a.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //4b
@@ -239,7 +239,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 460.00,
-                "image"=> "house-4b.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //4c
@@ -255,7 +255,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 220.00,
-                "image"=> "house-4c.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //5b
@@ -271,7 +271,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 120.00,
-                "image"=> "house-5b.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //5a
@@ -287,7 +287,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 520.00,
-                "image"=> "house-5a.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //6b
@@ -303,7 +303,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 90.00,
-                "image"=> "house-6b.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //6a
@@ -319,7 +319,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 320.00,
-                "image"=> "house-6a.jpg", //
+                "image"=> "", //
                 "visibility"=> "1",
             ],
             //6c
@@ -335,7 +335,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 300.00,
-                "image"=> "house-6c.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //7a
@@ -351,7 +351,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 300.00,
-                "image"=> "house-7a.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //7b
@@ -367,7 +367,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 320.00,
-                "image"=> "house-7b.jpgC", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //7c
@@ -383,7 +383,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 220.00,
-                "image"=> "house-7c.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //8b
@@ -399,7 +399,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 150.00,
-                "image"=> "house-8b.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //8a
@@ -415,7 +415,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 160.00,
-                "image"=> "house-8a.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //9a
@@ -431,7 +431,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 250.00,
-                "image"=> "house-9a.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //8c
@@ -447,7 +447,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 360.00,
-                "image"=> "house-8c.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
             //10a
@@ -463,7 +463,7 @@ class ApartmentSeeder extends Seeder
                 "latitude"=> "41.894939",
                 "longitude"=> "12.484137",
                 "price"=> 100.00,
-                "image"=> "house-10a.jpg", 
+                "image"=> "", 
                 "visibility"=> "1",
             ],
              

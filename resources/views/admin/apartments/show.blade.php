@@ -3,13 +3,12 @@
 @section('page-name', $apartment->title)
 
 @section('content')
-    <section class="container text-center pt-4">
 
-        @if (session('message_content'))
-            <div class="alert alert-{{session('message_type') ? session('message_type') : 'success'}}">
-                {{session('message_content')}}
-            </div>
-        @endif
+    <div class="container pt-5">
+        @include('layouts.partials._session-message')
+    </div>
+
+    <section class="container text-center pt-4">
 
         <h1 class="my-4">Dettaglio - {{$apartment->id}}</h1>
 

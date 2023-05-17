@@ -5,6 +5,11 @@
 @section('page-name', 'Appartamenti')
 
 @section('content')
+
+    <div class="container pt-5">
+        @include('layouts.partials._session-message')
+    </div>
+
     <section class="container">
         <h1 class="text-center mt-5">Lista Appartamenti</h1>
         <div class="row">

@@ -74,7 +74,7 @@ class ApartmentController extends Controller
         if(Arr::exists($data, "services")) $apartment->services()->attach($data["services"]);
         
         // dd($data);
-        return redirect()->route('admin.apartments.show', $apartment);
+        return redirect()->route('admin.apartments.show', $apartment)->with('message_content', 'Nuovo appartamento aggiunto con successo');
     }
 
     /**
@@ -128,7 +128,7 @@ class ApartmentController extends Controller
             $apartment->services()->detach();
 
         
-        return redirect()->route('admin.apartments.show', $apartment);
+        return redirect()->route('admin.apartments.show', $apartment)->with('message_content', 'Appartamento modificato con successo');
     }
 
     /**
@@ -141,7 +141,8 @@ class ApartmentController extends Controller
     {
         if($apartment->image) Storage::delete($apartment->image);
         $apartment->delete();
-        return redirect()->route('admin.apartments.index');
+        return redirect()->route('admin.apartments.index')->with('message_content', 'Appartamento eliminato con successo')
+        ->with('message_type', 'danger');
     }
 
     private function validation($data) 
