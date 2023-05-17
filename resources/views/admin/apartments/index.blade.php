@@ -56,20 +56,22 @@
                                     <i class="bi bi-eye-fill"></i>
                                 </a>
 
-                                {{-- ? PER L'ICONA DEL SINGOLO MESSAGGIO ASPETTARE DI SVILUPPARE LE API Message --}}
-                                {{-- Messaggi
+                                {{-- Messaggi --}}
                                 <a href="{{ route('admin.messages.index', ['apartment_id' => $apartment->id]) }}" title="Messaggi"
                                     class="mx-2">
                                     <i class="bi bi-envelope-fill"></i>
-                                </a> --}}
+                                </a>
 
 
                                 {{-- Modifica --}}
                                 <a href="{{ route('admin.apartments.edit', $apartment) }}" title="Modifica">
                                     <i class="bi bi-pencil-square mx-2"></i>
                                 </a>
+
+                                {{-- Elimina --}}
                                 <button class="bi bi-trash3-fill text-danger btn-icon" data-bs-toggle="modal"
-                                    data-bs-target="#delete-modal-{{ $apartment->id }}" title="Elimina"></button>
+                                    data-bs-target="#delete-modal-{{ $apartment->id }}" title="Elimina">
+                                </button>
                             </td>
                         </tr>
                     @empty

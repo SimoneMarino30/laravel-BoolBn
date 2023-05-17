@@ -35,7 +35,7 @@ class MessageController extends Controller
              $messages = $messages->where('apartment_id', $apartment_id);
          }
 
-         $messages = $messages->get();
+         $messages = $messages->paginate(5);
 
         return view('admin.messages.index', compact('messages'));
 
@@ -55,11 +55,55 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Message  $message
+     * @param  \App\Models\Message $message
      * @return \Illuminate\Http\Response
      */
+    // * Funzione per cestinare messaggio
     public function destroy(Message $message)
     {
-        //
+        $message->delete();
+        return to_route('admin.messages.index')
+        ->with('message_type', 'danger')
+        ->with('message_content', 'Messaggio da ' . $message->email . ' cestinato con successo.');
+    }
+
+    /**
+     * Display a listing of the trashed message.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    // * Funzione per visualizzare lista elementi DB nel cestino
+    public function trash(Request $request) {
+        $trashed_messages = Message::onlyTrashed()->paginate(10);
+        return view('admin.messages.trash', compact('trashed_messages'));
+    }
+
+    /**
+     * Restores the specified resource from storage.
+     *
+     * @param  \App\Models\Int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore(Int $id)
+    {
+        $message = Message::where('id', $id)->onlyTrashed()->first();
+        $message->restore();
+        return to_route('admin.messages.index')->with('message_content', 'Messaggio ripristinato!');
+    }
+
+    /**
+     * Force deletes the specified message from storage.
+     *
+     * @param  \App\Models\Int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forcedelete(Int $id)
+    {
+        $message = Message::where('id', $id)->onlyTrashed()->first();
+
+        $message->forceDelete();
+        return to_route('admin.messages.trash')->with('message_content', 'Messaggio eliminato definitivamente!')
+            ->with('message_type', 'danger');
     }
 }
