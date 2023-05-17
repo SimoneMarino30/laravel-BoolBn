@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\Service;
 use App\Models\User;
-use App\Models\UserDetail;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -84,17 +84,14 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment, UserDetail $user_detail, Service $service)
+    public function show(Request $request, Apartment $apartment, User $user)
     {  
-        $id_appartamento = $apartment->user_id;
-        $id_utente = $user_detail->name;
-        
-        /* if($user_detail->user_id === $apartment->user_id){
-           $this->authorize('view', $apartment);  
-        }   */
-        dd($apartment, $user_detail, $service);
-       
-        return view('admin.apartments.show', compact('apartment'));
+        $user=Auth::user();
+
+         if($user->id === $apartment->user_id){
+           return view('admin.apartments.show', compact('apartment'));
+        }   abort(403, "accesso autorizzato");
+
     }
 
     /**
@@ -103,12 +100,17 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Apartment $apartment)
+    public function edit(Apartment $apartment, User $user)
     {
         
         $services = Service::all();
         $apartment_services = $apartment->services->pluck('id')->toArray();
-        return view('admin.apartments.form', compact('apartment', 'services', 'apartment_services'));
+         $user=Auth::user();
+
+         if($user->id === $apartment->user_id){
+          return view('admin.apartments.form', compact('apartment', 'services', 'apartment_services'));
+        }   abort(403, "accesso non autorizzato");
+        
     }
 
     /**

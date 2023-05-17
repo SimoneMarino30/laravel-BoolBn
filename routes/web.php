@@ -6,6 +6,7 @@
 // * Admin
 use App\Http\Controllers\Admin\ApartmentController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\UserDetailController;
 
 use Illuminate\Support\Facades\Route;
 
