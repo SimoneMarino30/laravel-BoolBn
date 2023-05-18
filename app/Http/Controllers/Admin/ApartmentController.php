@@ -92,7 +92,7 @@ class ApartmentController extends Controller
 
          if($user->id === $apartment->user_id){
            return view('admin.apartments.show', compact('apartment'));
-        }   abort(403, "accesso autorizzato");
+        }   abort(403, "accesso non autorizzato");
 
     }
 
