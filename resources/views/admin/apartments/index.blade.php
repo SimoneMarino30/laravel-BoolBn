@@ -48,8 +48,8 @@
                                     {!! $apartment->getIconHTML() !!}
                                 </span>
                             </td>
-                            <td>{{$apartment->created_at}}</td>
-                            <td>{{$apartment->updated_at}}</td>
+                            <td>{{ $apartment->created_at }}</td>
+                            <td>{{ $apartment->updated_at }}</td>
                             <td>
                                 {{-- Dettaglio --}}
                                 <a href="{{ route('admin.apartments.show', $apartment) }}" title="Dettaglio">
@@ -57,8 +57,8 @@
                                 </a>
 
                                 {{-- Messaggi --}}
-                                <a href="{{ route('admin.messages.index', ['apartment_id' => $apartment->id]) }}" title="Messaggi"
-                                    class="mx-2">
+                                <a href="{{ route('admin.messages.index', ['apartment_id' => $apartment->id]) }}"
+                                    title="Messaggi" class="mx-2">
                                     <i class="bi bi-envelope-fill"></i>
                                 </a>
 
@@ -74,9 +74,9 @@
                             </td>
                         </tr>
                     @empty
-                    <tr>
-                        <td colspan="9" scope="row">Nessun risultato 🤦‍♂️</td>
-                    </tr>
+                        <tr>
+                            <td colspan="9" scope="row">Nessun risultato 🤦‍♂️</td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -89,8 +89,8 @@
 @section('modals')
     @foreach ($apartments as $apartment)
         <!-- Modal -->
-        <div class="modal fade" id="delete-modal-{{ $apartment->id }}" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="delete-modal-{{ $apartment->id }}" tabindex="-1" data-bs-backdrop="static"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header modal-bg">

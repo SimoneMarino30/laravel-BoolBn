@@ -54,7 +54,8 @@
                             <input type="text"
                                 class="form-control @error('address') is-invalid @enderror @error('latitude') is-invalid @enderror"
                                 id="address" name="address" value="{{ old('address') ?? $apartment->address }}"
-                                id="address" placeholder="Esempio: Via Marmorata, 100, Roma (RM), Italia" maxlength="255" required>
+                                id="address" placeholder="Esempio: Via Marmorata, 100, Roma (RM), Italia" maxlength="255"
+                                required>
                             @error('address')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -139,9 +140,9 @@
 
                             <div class="col-md-2 d-flex flex-column justify-content-center align-items-center">
                                 <label for="visibility" class="form-check-label">Pubblicato</label>
-                                <div class="form-check form-switch">
-                                    <input type="checkbox" name="visibility" id="visibility"
-                                        class="form-check-input @error('visibility') is-invalid @enderror" role="switch"
+                                <div class="form-check">
+                                    <input type="radio" name="visibility" id="visibility"
+                                        class="form-check-input @error('visibility') is-invalid @enderror"
                                         @checked(old('visibility', $apartment->visibility)) value="1" />
                                     @error('visibility')
                                         <div class="invalid-feedback">
@@ -157,7 +158,7 @@
                                     {{-- * Servizi  --}}
                                     @if (count($services) > 0)
                                         {{-- * Button trigger modal --}}
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#service-model">
                                             Aggiungi servizi
                                         </button>
@@ -260,10 +261,11 @@
                         <div id="image_preview_content" class="text-center position-relative">
                             <img src="{{ $apartment->getImageUri() }}" alt="" class="img-fluid mb-2"
                                 id="image-preview">
-                            @if($apartment->image)
-                            <span id="button-delete-apartment-image" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                X
-                            </span>
+                            @if ($apartment->image)
+                                <span id="button-delete-apartment-image"
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    X
+                                </span>
                             @endif
                         </div>
 
@@ -276,17 +278,18 @@
                 </form>
 
                 {{-- ! FORM CANCELLAZIONE IMMAGINE --}}
-                @if($apartment->image)
-                {{-- FORM eliminazione image preview --}}
-                <form id="form-delete-apartment-image" action="{{route('admin.apartments.deleteimage', $apartment)}}" method="POST">
-                    @method('delete')
-                    @csrf
+                @if ($apartment->image)
+                    {{-- FORM eliminazione image preview --}}
+                    <form id="form-delete-apartment-image"
+                        action="{{ route('admin.apartments.deleteimage', $apartment) }}" method="POST">
+                        @method('delete')
+                        @csrf
 
-                </form>
+                    </form>
                 @endif
 
                 {{-- ! CONTAINER STAMPA SERVIZI AGGIUNTIVI --}}
-                <div id="servicesContainer">
+                <div id="servicesContainer" class="d-flex flex-column flex-wrap mt-3" style="height: 10rem">
 
                 </div>
             </div>
@@ -316,16 +319,16 @@
     </script>
 
     {{-- * Cancellazione immagine caricata --}}
-    @if($apartment->image)
-    <script>
-        const deleteImageButton = document.getElementById('button-delete-apartment-image');
-        const deleteImageForm = document.getElementById('form-delete-apartment-image');
+    @if ($apartment->image)
+        <script>
+            const deleteImageButton = document.getElementById('button-delete-apartment-image');
+            const deleteImageForm = document.getElementById('form-delete-apartment-image');
 
-        deleteImageButton.addEventListener(
-            'click', () => {
-                deleteImageForm.submit();
-            });
-    </script>
+            deleteImageButton.addEventListener(
+                'click', () => {
+                    deleteImageForm.submit();
+                });
+        </script>
     @endif
 
     {{-- * Coordinates with tomtom --}}
@@ -440,7 +443,7 @@
             serviceEl.innerHTML = `
             <input type="hidden" name="services[]" value="${service.id}">
             <i class="${service.icon}" aria-hidden="true"></i>
-            <span>${service.name}</span>
+            <span class="me-3 ">${service.name}</span>
         `;
             servicesContainer.appendChild(serviceEl);
         }
@@ -470,5 +473,22 @@
                 });
             }
         });
+    </script>
+
+    <script type="text/javascript">
+        let allRadios = document.getElementsByName('visibility');
+        let booRadio;
+        let x = 0;
+        for (x = 0; x < allRadios.length; x++) {
+
+            allRadios[x].onclick = function() {
+                if (booRadio == this) {
+                    this.checked = false;
+                    booRadio = null;
+                } else {
+                    booRadio = this;
+                }
+            };
+        }
     </script>
 @endsection

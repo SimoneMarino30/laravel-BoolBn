@@ -50,3 +50,27 @@ form {
         opacity: 1;
     }
 }
+
+input[type='radio'] {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        background-color: #ee1c1c;
+        content: '';
+        border: 2px solid #ee1c1c;
+        cursor: pointer;
+    }
+
+     input[type='radio']:checked {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        background-color: #1cc921;
+        content: '';
+        border: 1px solid #1cc921;
+        
+    }
+// ! tolgo la classe di bootstrap per avere il pallino verde del checked pieno
+.form-check-input:checked[type="radio"] {
+  background-image: none;
+}

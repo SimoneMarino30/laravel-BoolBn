@@ -10,14 +10,14 @@
 
     <section class="container text-center pt-4">
 
-        <h1 class="my-4">Dettaglio - {{$apartment->id}}</h1>
+        <h1 class="my-4">Dettaglio - {{ $apartment->id }}</h1>
 
         <div class="d-flex justify-content-center">
-            <a href="{{route('admin.apartments.index')}}" class="btn btn-primary me-3">
+            <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary me-3">
                 Torna alla lista
             </a>
-    
-            <a href="{{route('admin.apartments.edit', $apartment)}}" class="btn btn-primary ms-3">
+
+            <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-primary ms-3">
                 Modifica progetto
             </a>
         </div>
@@ -25,18 +25,18 @@
         <div class="card clearfix my-4">
             <div class="card-header">
                 <strong>
-                    {{$apartment->title}}
+                    {{ $apartment->title }}
                 </strong>
             </div>
 
             <div class="card-body">
                 <figure class="float-end ms-5 mb-3">
-                    <img src="{{$apartment->getImageUri()}}" alt="{{$apartment->title}}" width="300">
+                    <img src="{{ $apartment->getImageUri() }}" alt="{{ $apartment->title }}" width="300">
                     <figcaption>
                         <p class="text-muted text-secondary m-0">
                             <strong>Stato:</strong>
-                            <span class="{{$apartment->visibility ? 'text-success' : 'text-danger'}}">
-                                {{$apartment->visibility ? 'Pubblicato' : 'Da pubblicare'}}
+                            <span class="{{ $apartment->visibility ? 'text-success' : 'text-danger' }}">
+                                {{ $apartment->visibility ? 'Pubblicato' : 'Da pubblicare' }}
                             </span>
                         </p>
                     </figcaption>
@@ -95,7 +95,7 @@
                 <p class="my-5">
                     <strong class="text-center">Descrizione:</strong>
                     <br>
-                    {{$apartment->description}}
+                    {{ $apartment->description }}
                 </p>
             </div>
 
@@ -111,19 +111,19 @@
                         </li>
                     @empty
                         Nessun servizio specificato
-                    @endforelse 
+                    @endforelse
                 </ul>
             </div>
 
             <div class="card-footer d-flex justify-content-between">
                 <span>
                     <strong>Creato il:</strong>
-                    {{$apartment->created_at}}
+                    {{ $apartment->created_at }}
                 </span>
 
                 <span>
                     <strong>Ultima modifica:</strong>
-                    {{$apartment->updated_at}}
+                    {{ $apartment->updated_at }}
                 </span>
             </div>
         </div>

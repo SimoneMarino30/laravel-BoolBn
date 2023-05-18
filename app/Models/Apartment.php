@@ -83,7 +83,7 @@ class Apartment extends Model
 
     // Funzione che restituisce un icona html
     public function getIconHTML() {
-        if ($this->visibility) {
+        if ($this->visibility == 1) {
             return '<i class="bi bi-check-lg"></i>';
         } else {
             return '<i class="bi bi-x-lg"></i>';
