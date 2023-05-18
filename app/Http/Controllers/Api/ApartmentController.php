@@ -16,6 +16,10 @@ class ApartmentController extends Controller
     {
         $apartments = Apartment::where('visibility', true)->with('services')->orderBy('updated_at', 'DESC')->paginate(8);
 
+        foreach($apartments as $apartment) {
+            $apartment->image = $apartment->getImageUri();
+        }
+
         return response()->json($apartments);
     }
 
@@ -36,9 +40,12 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $apartment = Apartment::find($id);
+        $apartment = Apartment::where('slug', $slug)->with('services')->first();
+
+        $apartment->image = $apartment->getImageUri();
+
         if(! $apartment) return response(null, 404);
 
         return response()->json($apartment);
