@@ -38,7 +38,10 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $apartment = Apartment::find($id);
+        if(! $apartment) return response(null, 404);
+
+        return response()->json($apartment);
     }
 
     /**
