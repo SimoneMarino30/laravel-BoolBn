@@ -12,6 +12,8 @@ class Message extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['apartment_id', 'name', 'surname', 'email', 'text'];
+
     // * RELAZIONI
 
     // Relazione con tabella apartments

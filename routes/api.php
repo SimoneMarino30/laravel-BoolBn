@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\ApartmentController;
+use App\Http\Controllers\Api\MessageController;
+use App\Http\Controllers\Api\ServiceController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ApartmentController;
-use App\Http\Controllers\Api\ServiceController;
 
 
 
@@ -18,6 +20,11 @@ use App\Http\Controllers\Api\ServiceController;
 |
 */
 
+// * ApartmentController
 Route::apiResource('apartments', ApartmentController::class);
 
+// * MessageController
+Route::post('messages', [MessageController::class, 'store']);
+
+// * ServiceController
 Route::apiResource('services', ServiceController::class);
