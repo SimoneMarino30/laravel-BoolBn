@@ -81,8 +81,8 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         // Reindirizzo al frontend
-        // return redirect('http://localhost:5174');
+        return redirect('http://localhost:5174?login=true&auth='.$user->id);
         
-        return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::HOME);
     }
 }
