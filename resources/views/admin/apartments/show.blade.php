@@ -18,7 +18,7 @@
             </a>
 
             <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-primary ms-3">
-                Modifica progetto
+                Modifica appartamento
             </a>
         </div>
 
