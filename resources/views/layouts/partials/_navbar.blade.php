@@ -1,6 +1,6 @@
 <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="http://localhost:5174">
+        <a class="navbar-brand d-flex align-items-center" href="{{ route('dashboard') }}">
             <i class="bi bi-house-door-fill me-2"></i>
             BoolBnB
         </a>
@@ -28,6 +28,11 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.messages*') ? 'active' : '' }}"
                             href="{{ route('admin.messages.index') }}">{{ __('Messaggi') }}</a>
+                    </li>
+                    {{-- * ROTTA LISTA SPONSOR --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.sponsors*') ? 'active' : '' }}"
+                            href="{{ route('admin.sponsors.index') }}">{{ __('Sponsor') }}</a>
                     </li>
                 </ul>
             @endauth
