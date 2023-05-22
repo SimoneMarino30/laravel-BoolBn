@@ -128,4 +128,27 @@ class ApartmentController extends Controller
     {
         //
     }
+
+    // Funzione per recuperare appartamenti sponsorizzati
+    public function sponsoredApartments() {
+
+        $apartments = Apartment::whereHas('sponsors', function ($query) {
+            $query->where('expiring_date', '>=', Date('Y-m-d H:m:s'));
+        })->paginate(4);
+
+        foreach($apartments as $apartment) {
+            $apartment->image = $apartment->getImageUri();
+            // volendo si potrebbe aggiungere un valore sponsored=true
+            // $apartment['sponsored'] = true;
+        }
+
+        $response = [
+            'success' => true,
+            'code' => 200,
+            'message' => 'Lista appartamenti sponsorizzati',
+            'apartments' => $apartments
+        ];
+
+        return response()->json($response);
+    }
 }

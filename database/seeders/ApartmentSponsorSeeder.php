@@ -26,25 +26,25 @@ class ApartmentSponsorSeeder extends Seeder
                 "apartment_id" => "1",
                 "sponsor_id" => "2",
                 "starting_date" => date("Y-m-d H:i:s"),
-                "expiring_date" => "2023-05-14",
+                "expiring_date" => "2023-05-25",
             ],
             [
                 "apartment_id" => "10",
                 "sponsor_id" => "3",
                 "starting_date" => date("Y-m-d H:i:s"),
-                "expiring_date" => "2023-05-15",
+                "expiring_date" => "2023-05-28",
             ],
             [
                 "apartment_id" => "4",
                 "sponsor_id" => "3",
                 "starting_date" => date("Y-m-d H:i:s"),
-                "expiring_date" => "2023-05-15",
+                "expiring_date" => "2023-05-28",
             ],
             [
                 "apartment_id" => "14",
                 "sponsor_id" => "1",
                 "starting_date" => date("Y-m-d H:i:s"),
-                "expiring_date" => "2023-05-13",
+                "expiring_date" => "2023-05-23",
             ],
         ];
 
