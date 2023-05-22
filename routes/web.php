@@ -7,6 +7,7 @@
 use App\Http\Controllers\Admin\ApartmentController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Admin\UserDetailController;
 
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,9 @@ Route::middleware('auth')
 
     // * Risorsa Service
     Route::resource('services', ServiceController::class)->only('edit');
+
+    // * Risorsa Sponsor
+    Route::resource('sponsors', SponsorController::class)->only('index');
 });
 
 
