@@ -24,6 +24,9 @@ use Illuminate\Support\Facades\Route;
 // * ApartmentController
 Route::apiResource('apartments', ApartmentController::class);
 
+// SponsoredApartments
+Route::get('sponsored-apartments', [ApartmentController::class, 'sponsoredApartments'])->name('sponsored-apartments');
+
 // * MessageController
 Route::post('messages', [MessageController::class, 'store']);
 
