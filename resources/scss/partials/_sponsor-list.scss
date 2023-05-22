@@ -1,0 +1,42 @@
+// IMPORT ROBOTO - GOOGLE FONT
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+// VARIABILI
+$silver-color: #c0c0c0;
+$golden-color: #ffd700;
+$platinum-color: #e5e4e2;
+
+.silver {
+    color: $silver-color;
+}
+
+.gold {
+    color: $golden-color;
+}
+
+.platinum {
+    color: $platinum-color;
+}
+
+#sponsors_list {
+    .row {
+        margin-top: 3rem;
+
+        .my-card {
+            background-color: #212529;
+            min-height: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            cursor: pointer;
+
+            .my-card-header {
+                font-family: 'Roboto', sans-serif;
+            }
+
+            .my-card-body {
+                padding: 2rem;
+                color: #efefef;
+            }
+        }
+    }
+}
