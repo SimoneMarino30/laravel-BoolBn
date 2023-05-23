@@ -15,10 +15,46 @@ class ApartmentController extends Controller
     public function index()
     {
         // ! NO FILTRI
-        $apartments = Apartment::where('visibility', true)->with('services')->orderBy('updated_at', 'DESC')->paginate(8);
+        // Recupero gli ID degli appartamenti sponsorizzati
+        $sponsored_apartments_id = Apartment::whereHas('sponsors', function ($query) {
+            $query->where('expiring_date', '>=', Date('Y-m-d H:m:s'));
+        })->pluck('id');
 
-        foreach($apartments as $apartment) {
+        // Creo un nuovo array per poter utilizzare metodo in_array successivamento qunado aggiungo chiave sponsored = true, visto che non riconosce sponsored_apartments_id
+        $id_array = [];
+        foreach($sponsored_apartments_id as $item) {
+            $id_array[] = $item;
+        }
+
+        // ---- QUERY SQL ---- //
+        // SELECT *
+        // FROM `apartments`
+        // LEFT JOIN `apartment_sponsor` ON `apartments`.`id` = `apartment_sponsor`.`apartment_id`
+        // WHERE `apartment_sponsor`.`expiring_date` >= NOW()
+        // ORDER BY `apartments`.`updated_at` DESC ;
+        // -------- //
+
+        // Query appartamenti
+        $apartments = Apartment::leftJoin('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
+        ->select('apartments.*')
+        ->with(['sponsors' => function ($query) {
+            $query->where('expiring_date', '>=', Date('Y-m-d H:m:s'))
+                ->orderBy('expiring_date', 'asc');
+        }])
+        ->with('services')
+        ->where("visibility", "1")
+        // CASE WHEN - THEN - ELSE - END
+        ->orderByRaw('CASE WHEN apartment_sponsor.expiring_date >= ? THEN 0 ELSE 1 END, apartment_sponsor.expiring_date ASC', [Date('Y-m-d H:m:s')])
+        ->orderBy('updated_at', 'DESC')
+        ->paginate(8);
+
+        // Aggiungo parametro true e false per sponsored al singolo appartamento
+        foreach ($apartments as $apartment) {
             $apartment->image = $apartment->getImageUri();
+            if (in_array($apartment['id'], $id_array))
+                $apartment['sponsored'] = true;
+            else
+                $apartment['sponsored'] = false;
         }
 
         return response()->json($apartments);
@@ -138,8 +174,8 @@ class ApartmentController extends Controller
 
         foreach($apartments as $apartment) {
             $apartment->image = $apartment->getImageUri();
-            // volendo si potrebbe aggiungere un valore sponsored=true
-            // $apartment['sponsored'] = true;
+            // Aggiungo chiave sponsored così da poter ordinare per appartamenti sponsorizzati
+            $apartment['sponsored'] = true;
         }
 
         $response = [
