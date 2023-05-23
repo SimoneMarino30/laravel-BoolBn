@@ -26,27 +26,52 @@ class ApartmentController extends Controller
             $id_array[] = $item;
         }
 
-        // ---- QUERY SQL ---- //
-        // SELECT *
-        // FROM `apartments`
-        // LEFT JOIN `apartment_sponsor` ON `apartments`.`id` = `apartment_sponsor`.`apartment_id`
-        // WHERE `apartment_sponsor`.`expiring_date` >= NOW()
-        // ORDER BY `apartments`.`updated_at` DESC ;
-        // -------- //
+        if (request()->input('address')) {
 
-        // Query appartamenti
-        $apartments = Apartment::leftJoin('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
-        ->select('apartments.*')
-        ->with(['sponsors' => function ($query) {
-            $query->where('expiring_date', '>=', Date('Y-m-d H:m:s'))
-                ->orderBy('expiring_date', 'asc');
-        }])
-        ->with('services')
-        ->where("visibility", "1")
-        // CASE WHEN - THEN - ELSE - END
-        ->orderByRaw('CASE WHEN apartment_sponsor.expiring_date >= ? THEN 0 ELSE 1 END, apartment_sponsor.expiring_date ASC', [Date('Y-m-d H:m:s')])
-        ->orderBy('updated_at', 'DESC')
-        ->paginate(8);
+            $address = request()->input('address');
+
+            $apartments = Apartment::leftJoin('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
+                ->select('apartments.*')
+                ->with(['sponsors' => function ($query) {
+                    $query->where('expiring_date', '>=', Date('Y-m-d H:m:s'))->orderBy('expiring_date', 'asc');
+                }])
+                ->with('services')
+                ->where('address', 'like', '%'.$address.'%')
+                ->where("visibility", "1")
+                // CASE WHEN - THEN - ELSE - END
+                ->orderByRaw('CASE WHEN apartment_sponsor.expiring_date >= ? THEN 0 ELSE 1 END, apartment_sponsor.expiring_date ASC', [Date('Y-m-d H:m:s')])
+                ->orderBy('updated_at', 'DESC')
+                // PAGINAZIONE DA REINSERIRE DOPO AVER RISOLTO BUG FILTRI
+                ->paginate(8);
+                // ->get();
+                
+        } else {
+                  
+            // ---- QUERY SQL ---- //
+            // SELECT *
+            // FROM `apartments`
+            // LEFT JOIN `apartment_sponsor` ON `apartments`.`id` = `apartment_sponsor`.`apartment_id`
+            // WHERE `apartment_sponsor`.`expiring_date` >= NOW()
+            // ORDER BY `apartments`.`updated_at` DESC ;
+            // -------- //
+
+            // Query appartamenti
+            $apartments = Apartment::leftJoin('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
+                ->select('apartments.*')
+                ->with(['sponsors' => function ($query) {
+                    $query->where('expiring_date', '>=', Date('Y-m-d H:m:s'))
+                        ->orderBy('expiring_date', 'asc');
+                }])
+                ->with('services')
+                ->where("visibility", "1")
+                // CASE WHEN - THEN - ELSE - END
+                ->orderByRaw('CASE WHEN apartment_sponsor.expiring_date >= ? THEN 0 ELSE 1 END, apartment_sponsor.expiring_date ASC', [Date('Y-m-d H:m:s')])
+                ->orderBy('updated_at', 'DESC')
+                // PAGINAZIONE DA REINSERIRE DOPO AVER RISOLTO BUG FILTRI
+                ->paginate(8);
+                // ->get();
+
+        }
 
         // Aggiungo parametro true e false per sponsored al singolo appartamento
         foreach ($apartments as $apartment) {
@@ -56,28 +81,8 @@ class ApartmentController extends Controller
             else
                 $apartment['sponsored'] = false;
         }
-
+         
         return response()->json($apartments);
-
-
-        // ! RICERCA PER INDIRIZZO
-        // if (request()->input('address')) {
-
-        //     $address = request()->input('address');
-
-        //     $apartments = Apartment::where('address', 'like', '%'.$address.'%')->where('visibility', true)->paginate(8);
-        // } else {
-        //     $apartments = Apartment::all();
-        // }
-
-        // $response = [
-        //     'success' => true,
-        //     'code' => 200,
-        //     'message' => 'La lista arriva',
-        //     'apartments' => $apartments
-        // ];
-        
-        // return response()->json($response);
 
 
         // ! LOGICA COORDINATE E RAGGIO
@@ -98,7 +103,7 @@ class ApartmentController extends Controller
 
         // $lat = n;
         // $lon = n;
-        // $range = 20;
+        // $radius = 20;
 
         // if (
         //     request()->input('lat') &&
@@ -107,11 +112,8 @@ class ApartmentController extends Controller
         //     $lat = request()->input('lat');
         //     $lon = request()->input('lon');
         // }
-        // if (request()->input('range'))
-        //     $range = request()->input('range');
-
-        // ORDINAMENTO RISPOSTA PER DISTANZA
-        // "(6371 * acos(cos(radians(" . $lat . ")) * cos(radians(latitude)) * cos(radians(longitude) - radians(" . $lon . ")) + sin(radians(" . $lat . ")) * sin(radians(latitude)))) asc";
+        // if (request()->input('radius'))
+        //     $radius = request()->input('radius');
     }
 
     /**
