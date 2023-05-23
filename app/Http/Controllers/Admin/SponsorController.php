@@ -15,11 +15,13 @@ class SponsorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $apartment_id = $request->query('apartment_id');
+        
         $sponsors = Sponsor::all();
 
-        return view('admin.sponsors.index', compact('sponsors'));
+        return view('admin.sponsors.index', compact('sponsors', 'apartment_id'));
     }
 
     /**
