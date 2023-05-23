@@ -60,7 +60,7 @@ Route::middleware('auth')
     Route::resource('services', ServiceController::class)->only('edit');
 
     // * Risorsa Sponsor
-    Route::resource('sponsors', SponsorController::class)->only('index');
+    Route::resource('sponsors', SponsorController::class)->only(['index', 'show']);
 });
 
 
