@@ -84,9 +84,9 @@
                                             </td>
                                             <td class="align-middle text-center">
                                                 {{-- QUI REINDIRIZZEREI ALLA STESSA route() CHE GESTISCE IL PAGAMENTO NEL CASO DELL'APPARTAMENTO RICEVUTO --}}
-                                                <span class="btn btn-success">
+                                                <a href="{{ route('admin.payment.clientToken') }}" class="btn btn-success">
                                                     Paga
-                                                </span>
+                                                </a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -136,9 +136,9 @@
 
                             {{-- Rotta payment --}}
                             <div class="text-center my-3">
-                                <span class="btn btn-success">
+                                <a href="{{ route('admin.payment.clientToken') }}" class="btn btn-success">
                                     Procedi al pagamento
-                                </span>
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Admin\UserDetailController;
+use App\Http\Controllers\Admin\PaymentController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +62,9 @@ Route::middleware('auth')
 
     // * Risorsa Sponsor
     Route::resource('sponsors', SponsorController::class)->only(['index', 'show']);
+
+    // * Rotta  Pagamento
+    Route::any('payment/clientToken', [PaymentController::class, 'clientToken'])->name('payment.clientToken');
 });
 
 
