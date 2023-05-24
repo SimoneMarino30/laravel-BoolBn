@@ -41,10 +41,10 @@ class ApartmentSponsorSeeder extends Seeder
                 "expiring_date" => "2023-05-28",
             ],
             [
-                "apartment_id" => "14",
-                "sponsor_id" => "1",
+                "apartment_id" => "17",
+                "sponsor_id" => "2",
                 "starting_date" => date("Y-m-d H:i:s"),
-                "expiring_date" => "2023-05-23",
+                "expiring_date" => "2023-05-27",
             ],
         ];
 

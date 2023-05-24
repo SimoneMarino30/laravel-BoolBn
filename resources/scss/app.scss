@@ -1,7 +1,11 @@
-// * IMPORT
+// * IMPORT LOADER
 @import "./partials/bootstrap_loader.scss";
+
+// * IMPORT HEADER LAYOUT
 @import "./partials/_header";
-@import "./partials/_sponsor-list";
+
+// * IMPORT SPONSORS LAYOUT
+@import "././partials/sponsors/sponsor.scss";
 
 // * GENERICS
 .rotate-180 {

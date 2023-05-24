@@ -20,6 +20,19 @@
             <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-primary ms-3">
                 Modifica appartamento
             </a>
+
+            @if ($apartment->sponsored == false)
+                <div>
+                    <a href="{{ route('admin.sponsors.index', ['apartment_id' => $apartment->id]) }}"
+                        class="btn btn-success ms-3">
+                        Sponsorizza
+                    </a>
+                </div>
+            @else
+                <span class="ms-3 fs-4 fw-bold text-success">
+                    SPONSORIZZATO
+                </span>
+            @endif
         </div>
 
         <div class="card clearfix my-4">

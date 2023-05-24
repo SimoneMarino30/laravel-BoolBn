@@ -1,0 +1,74 @@
+// IMPORT GOOGLE FONT - ROBOTO
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+// VARIABILI
+$silver-color: #c0c0c0;
+$golden-color: #ffd700;
+$platinum-color: #e5e4e2;
+
+// GENERICS
+
+.silver {
+    color: $silver-color;
+}
+
+.gold {
+    color: $golden-color;
+}
+
+.platinum {
+    color: $platinum-color;
+}
+
+.my-sponsor-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #212529;
+    min-height: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+    transition: 1s;
+
+    .my-card-header {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .my-card-body {
+        padding: 2rem;
+        color: #efefef;
+    }
+
+    .my-card-footer {
+        margin-top: auto;
+    }
+}
+
+// Sponsors index
+
+#sponsors_list {
+    .row {
+        margin-top: 3rem;
+
+        .my-sponsor-card:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+// Sponsors show
+
+.table.rounded {
+    .my-image-container {
+        width: 30%;
+        margin: 0 auto;
+    }
+}
+
+.my-apartment-card {
+    background-color: #212529;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 100%;
+    text-align: center;
+}

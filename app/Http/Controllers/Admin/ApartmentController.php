@@ -9,6 +9,7 @@ use App\Models\Apartment;
 use App\Models\Service;
 use App\Models\User;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -90,7 +91,17 @@ class ApartmentController extends Controller
     {  
         $user=Auth::user();
 
-         if($user->id === $apartment->user_id){
+        $today = Carbon::today();
+
+        $apartment['sponsored'] = false;
+
+        $sponsorized = $apartment->sponsors()->where('expiring_date', '>', $today)->first();
+
+        if ($sponsorized) {
+            $apartment['sponsored'] = true;
+        }
+
+        if($user->id === $apartment->user_id){
            return view('admin.apartments.show', compact('apartment'));
         }   abort(403, "accesso non autorizzato");
 
