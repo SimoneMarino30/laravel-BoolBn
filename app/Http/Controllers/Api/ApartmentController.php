@@ -42,7 +42,7 @@ class ApartmentController extends Controller
                 ->orderByRaw('CASE WHEN apartment_sponsor.expiring_date >= ? THEN 0 ELSE 1 END, apartment_sponsor.expiring_date ASC', [Date('Y-m-d H:m:s')])
                 ->orderBy('updated_at', 'DESC')
                 // PAGINAZIONE DA REINSERIRE DOPO AVER RISOLTO BUG FILTRI
-                ->paginate(8);
+                ->paginate(50);
                 // ->get();
                 
         } else {
@@ -68,8 +68,8 @@ class ApartmentController extends Controller
                 ->orderByRaw('CASE WHEN apartment_sponsor.expiring_date >= ? THEN 0 ELSE 1 END, apartment_sponsor.expiring_date ASC', [Date('Y-m-d H:m:s')])
                 ->orderBy('updated_at', 'DESC')
                 // PAGINAZIONE DA REINSERIRE DOPO AVER RISOLTO BUG FILTRI
-                ->paginate(8);
-                // ->get();
+                // ->paginate(8);
+                ->get();
 
         }
 
