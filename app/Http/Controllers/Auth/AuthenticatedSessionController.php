@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
 
         // return redirect()->intended(RouteServiceProvider::HOME);
         $user= Auth::user();
-        return redirect('http://localhost:5174?login=true&auth='.$user->id);
+        return redirect('http://localhost:5174/login?login=true&auth='.$user->id);
     }
 
     /**
@@ -45,6 +45,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('http://localhost:5174?login=false');
+        return redirect('http://localhost:5174/login?login=false');
     }
 }
