@@ -27,9 +27,9 @@ class MessageController extends Controller
         $apartment_id = $request->input('apartment_id');
 
         $messages = Message::whereHas('apartment', function ($query) use ($user) {
-            $query->where('user_id', '=', $user->id)
-                ->orderBy('created_at', 'desc');
-        });
+            $query->where('user_id', '=', $user->id);
+                
+        })->orderBy('created_at', 'desc');
         
         // SE esiste l'appartamento seleziona i messaggi di quell'appartamento
          if ($apartment_id) {

@@ -4,74 +4,74 @@
 
 @section('content')
 
-<section class="container pt-4">
+    <section class="container pt-4">
 
-    <div class="container pt-5">
-        @include('layouts.partials._session-message')
-    </div>
-
-    <div class="row justify-content-between align-items-center my-4">
-        <div class="col">
-            <h1>Messaggi ricevuti</h1>
+        <div class="container pt-5">
+            @include('layouts.partials._session-message')
         </div>
 
-        <div class="col text-end">
-            <a href="{{ route('admin.messages.trash') }}" class="btn btn-danger">Cestino</a>
+        <div class="row justify-content-between align-items-center my-4">
+            <div class="col">
+                <h1>Messaggi ricevuti</h1>
+            </div>
+
+            <div class="col text-end">
+                <a href="{{ route('admin.messages.trash') }}" class="btn btn-danger">Cestino</a>
+            </div>
         </div>
-    </div>
-    
-    <table class="table table-dark table-striped">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Cognome</th>
-                <th scope="col">Email</th>
-                <th scope="col">Testo</th>
-                <th scope="col">Ricevuto</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($messages as $message)
+
+        <table class="table table-dark table-striped">
+            <thead>
                 <tr>
-                    <th scope="row">{{$message->id}}</th>
-                    <td>{{$message->name}}</td>
-                    <td>{{$message->surname}}</td>
-                    <td>{{$message->email}}</td>
-                    <td>{{$message->getAbstract()}}</td>
-                    <td>{{$message->created_at}}</td>
-                    <td>
-                        {{-- Dettaglio --}}
-                        <a href="{{route('admin.messages.show', $message)}}" title="Mostra il messaggio">
-                            <i class="bi bi-eye-fill me-2"></i>
-                        </a>
-
-                        {{-- Elimina --}}
-                        <button class="bi bi-trash3-fill text-danger btn-icon" data-bs-toggle="modal"
-                        data-bs-target="#delete-modal-{{ $message->id }}" title="Elimina">
-                    </button>
-                    </td>
+                    <th scope="col">Appartamento</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Cognome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Testo</th>
+                    <th scope="col">Ricevuto</th>
+                    <th scope="col">Action</th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="7" scope="row">Nessun risultato</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @forelse($messages as $message)
+                    <tr>
+                        <th scope="row">{{ $message->apartment->title }}</th>
+                        <td>{{ $message->name }}</td>
+                        <td>{{ $message->surname }}</td>
+                        <td>{{ $message->email }}</td>
+                        <td>{{ $message->getAbstract() }}</td>
+                        <td>{{ $message->created_at }}</td>
+                        <td>
+                            {{-- Dettaglio --}}
+                            <a href="{{ route('admin.messages.show', $message) }}" title="Mostra il messaggio">
+                                <i class="bi bi-eye-fill me-2"></i>
+                            </a>
 
-    {{ $messages->links() }}
+                            {{-- Elimina --}}
+                            <button class="bi bi-trash3-fill text-danger btn-icon" data-bs-toggle="modal"
+                                data-bs-target="#delete-modal-{{ $message->id }}" title="Elimina">
+                            </button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" scope="row">Nessun risultato</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
 
-</section>
+        {{ $messages->links() }}
+
+    </section>
 
 @endsection
 
 @section('modals')
     @foreach ($messages as $message)
         <!-- Modal -->
-        <div class="modal fade" id="delete-modal-{{ $message->id }}" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="delete-modal-{{ $message->id }}" tabindex="-1" data-bs-backdrop="static"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header modal-bg">
