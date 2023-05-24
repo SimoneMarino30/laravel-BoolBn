@@ -124,7 +124,7 @@ class ApartmentSeeder extends Seeder
                 "bathrooms"=> "1",
                 "mq"=> "40",
                 "address"=> "Via S. Giovanni Maggiore Pignatelli, 15, 80134, Napoli, NA",
-                "latitude"=> "440.84687572473189",
+                "latitude"=> "40.84687572473189",
                 "longitude"=> "14.25482264686615",
                 "price"=> 120.00,
                 "image"=> "", 
