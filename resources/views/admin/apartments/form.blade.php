@@ -374,7 +374,7 @@
          */
         function fetchResults(inputAddress) {
             fetch(
-                    `https://api.tomtom.com/search/2/search/${inputAddress}.json?key=${apiKey}`
+                    `https://api.tomtom.com/search/2/search/${inputAddress}.json?key=${apiKey}&countrySet=IT`
                 )
                 .then(response => response.json())
                 .then(data => {

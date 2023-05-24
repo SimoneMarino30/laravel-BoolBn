@@ -22,7 +22,7 @@
             <table class="table table-dark table-striped table-hover align-middle my-5">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
+                        {{-- <th scope="col">ID</th> --}}
                         <th scope="col">Anteprima</th>
                         <th scope="col">Appartamento</th>
                         <th scope="col">Prezzo</th>
@@ -36,7 +36,7 @@
                 <tbody>
                     @forelse($apartments as $apartment)
                         <tr>
-                            <th scope="row">{{ $apartment->id }}</th>
+                            {{-- <th scope="row">{{ $apartment->id }}</th> --}}
                             <td>
                                 <img src="{{ $apartment->getImageUri() }}" alt="" class="table-image">
                             </td>
@@ -75,7 +75,8 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" scope="row">Nessun risultato 🤦‍♂️</td>
+                            {{-- <td colspan="9" scope="row">Nessun risultato 🤦‍♂️</td> --}}
+                            <td colspan="8" scope="row">Nessun risultato 🤦‍♂️</td>
                         </tr>
                     @endforelse
                 </tbody>
