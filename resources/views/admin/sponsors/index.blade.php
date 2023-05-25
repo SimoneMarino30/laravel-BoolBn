@@ -4,6 +4,10 @@
 
 @section('content')
 
+    <div class="container pt-5">
+        @include('layouts.partials._session-message')
+    </div>
+
     <section id="sponsors_list" class="container py-5">
         <h1 class="mt-5">Sponsorizzazioni</h1>
 
