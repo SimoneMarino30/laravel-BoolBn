@@ -7,6 +7,9 @@
 // * IMPORT SPONSORS LAYOUT
 @import "././partials/sponsors/sponsor.scss";
 
+// * IMPORT PAYMENT LAYOUT
+@import "././partials/payment/_payment.scss";
+
 // * GENERICS
 .rotate-180 {
     transform: rotate(180deg);
