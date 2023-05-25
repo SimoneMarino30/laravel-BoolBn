@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Models\Apartment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class ApartmentController extends Controller
 
         // Creo un nuovo array per poter utilizzare metodo in_array successivamento qunado aggiungo chiave sponsored = true, visto che non riconosce sponsored_apartments_id
         $id_array = [];
-        foreach($sponsored_apartments_id as $item) {
+        foreach ($sponsored_apartments_id as $item) {
             $id_array[] = $item;
         }
 
@@ -36,17 +37,17 @@ class ApartmentController extends Controller
                     $query->where('expiring_date', '>=', Date('Y-m-d H:m:s'))->orderBy('expiring_date', 'asc');
                 }])
                 ->with('services')
-                ->where('address', 'like', '%'.$address.'%')
+                ->where('address', 'like', '%' . $address . '%')
                 ->where("visibility", "1")
                 // CASE WHEN - THEN - ELSE - END
                 ->orderByRaw('CASE WHEN apartment_sponsor.expiring_date >= ? THEN 0 ELSE 1 END, apartment_sponsor.expiring_date ASC', [Date('Y-m-d H:m:s')])
                 ->orderBy('updated_at', 'DESC')
                 // PAGINAZIONE DA REINSERIRE DOPO AVER RISOLTO BUG FILTRI
                 ->paginate(50);
-                // ->get();
-                
+            // ->get();
+
         } else {
-                  
+
             // ---- QUERY SQL ---- //
             // SELECT *
             // FROM `apartments`
@@ -68,8 +69,8 @@ class ApartmentController extends Controller
                 ->orderByRaw('CASE WHEN apartment_sponsor.expiring_date >= ? THEN 0 ELSE 1 END, apartment_sponsor.expiring_date ASC', [Date('Y-m-d H:m:s')])
                 ->orderBy('updated_at', 'DESC')
                 // PAGINAZIONE DA REINSERIRE DOPO AVER RISOLTO BUG FILTRI
-                // ->paginate(8);
-                ->get();
+                ->paginate(50);
+            // ->get();
 
         }
 
@@ -81,7 +82,7 @@ class ApartmentController extends Controller
             else
                 $apartment['sponsored'] = false;
         }
-         
+
         return response()->json($apartments);
 
 
@@ -139,7 +140,7 @@ class ApartmentController extends Controller
 
         $apartment->image = $apartment->getImageUri();
 
-        if(! $apartment) return response(null, 404);
+        if (!$apartment) return response(null, 404);
 
         return response()->json($apartment);
     }
@@ -168,13 +169,14 @@ class ApartmentController extends Controller
     }
 
     // Funzione per recuperare appartamenti sponsorizzati
-    public function sponsoredApartments() {
+    public function sponsoredApartments()
+    {
 
         $apartments = Apartment::whereHas('sponsors', function ($query) {
             $query->where('expiring_date', '>=', Date('Y-m-d H:m:s'));
         })->paginate(4);
 
-        foreach($apartments as $apartment) {
+        foreach ($apartments as $apartment) {
             $apartment->image = $apartment->getImageUri();
             // Aggiungo chiave sponsored così da poter ordinare per appartamenti sponsorizzati
             $apartment['sponsored'] = true;
