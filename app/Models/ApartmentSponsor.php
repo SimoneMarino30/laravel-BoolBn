@@ -10,4 +10,9 @@ class ApartmentSponsor extends Model
     use HasFactory;
 
     protected $table = "apartment_sponsor";
+
+    protected $fillable = [
+        'sponsor_id', 'apartment_id',
+        'starting_date', 'expiring_date'
+    ];
 }
