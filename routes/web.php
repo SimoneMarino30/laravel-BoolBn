@@ -65,6 +65,7 @@ Route::middleware('auth')
 
     // * Rotta  Pagamento
     Route::any('payment/clientToken', [PaymentController::class, 'clientToken'])->name('payment.clientToken');
+    Route::get('payment/make', [PaymentController::class, 'make'])->name('payment.make');
 });
 
 
