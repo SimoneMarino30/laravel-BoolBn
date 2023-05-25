@@ -34,39 +34,39 @@ Route::get('/dashboard', function () {
 
 // * Rotte risorse autenticate
 Route::middleware('auth')
-->prefix('/admin')
-->name('admin.')
-->group(function () {
+    ->prefix('/admin')
+    ->name('admin.')
+    ->group(function () {
 
-    // * Risorsa Apartment
-    
-    // Delete form image
-    Route::delete('apartments/{apartment}/delete-image', [ApartmentController::class, 'deleteimage'])->name('apartments.deleteimage');
-    
-    Route::resource('apartments', ApartmentController::class);
+        // * Risorsa Apartment
 
-    
-    // * Message softDelete
-    Route::get('messages/trash', [MessageController::class, 'trash'])->name('messages.trash');
-    Route::put('messages/{message}/restore', [MessageController::class, 'restore'])->name('messages.restore');
-    Route::delete('messages/{message}/forcedelete', [MessageController::class, 'forcedelete'])->name('messages.forcedelete');
+        // Delete form image
+        Route::delete('apartments/{apartment}/delete-image', [ApartmentController::class, 'deleteimage'])->name('apartments.deleteimage');
 
-    // * Risorsa Message
-    Route::resource('messages', MessageController::class)->only(['index', 'show', 'destroy']);
-    
-    // * Risorsa UserDetail
-    Route::resource('user_details', UserDetailController::class)->only(['update', 'edit', 'index']);
+        Route::resource('apartments', ApartmentController::class);
 
-    // * Risorsa Service
-    Route::resource('services', ServiceController::class)->only('edit');
 
-    // * Risorsa Sponsor
-    Route::resource('sponsors', SponsorController::class)->only(['index', 'show']);
+        // * Message softDelete
+        Route::get('messages/trash', [MessageController::class, 'trash'])->name('messages.trash');
+        Route::put('messages/{message}/restore', [MessageController::class, 'restore'])->name('messages.restore');
+        Route::delete('messages/{message}/forcedelete', [MessageController::class, 'forcedelete'])->name('messages.forcedelete');
 
-    // * Rotta  Pagamento
-    Route::any('payment/clientToken', [PaymentController::class, 'clientToken'])->name('payment.clientToken');
-    Route::get('payment/make', [PaymentController::class, 'make'])->name('payment.make');
-});
+        // * Risorsa Message
+        Route::resource('messages', MessageController::class)->only(['index', 'show', 'destroy']);
+
+        // * Risorsa UserDetail
+        Route::resource('user_details', UserDetailController::class)->only(['update', 'edit', 'index']);
+
+        // * Risorsa Service
+        Route::resource('services', ServiceController::class)->only('edit');
+
+        // * Risorsa Sponsor
+        Route::resource('sponsors', SponsorController::class)->only(['index', 'show']);
+
+        // * Rotta  Pagamento
+        Route::any('payment/clientToken', [PaymentController::class, 'clientToken'])->name('payment.clientToken');
+        Route::get('payment/make', [PaymentController::class, 'make'])->name('payment.make');
+    });
 
 
 

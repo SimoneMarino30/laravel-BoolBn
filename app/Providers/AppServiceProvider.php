@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 
 use Braintree\Configuration;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
