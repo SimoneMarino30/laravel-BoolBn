@@ -1,0 +1,64 @@
+#index {
+    th {
+        // color: $custom4;
+    }
+
+    td {
+        // color: $primary;
+    }
+// background-color: $custom1;
+// color: 1px solid $custom2;
+
+  .table-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+}
+
+// * form style
+
+form {
+    #image_preview_content {
+        img {
+            min-width: 300px;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        #button-delete-apartment-image {
+            cursor: pointer;
+            opacity: 0.3;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+        }
+    }
+    #image_preview_content:hover #button-delete-apartment-image {
+        opacity: 1;
+    }
+}
+
+input[type='radio'] {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        background-color: #ee1c1c;
+        content: '';
+        border: 2px solid #ee1c1c;
+        cursor: pointer;
+    }
+
+     input[type='radio']:checked {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        background-color: #1cc921;
+        content: '';
+        border: 1px solid #1cc921;
+        
+    }
+// ! tolgo la classe di bootstrap per avere il pallino verde del checked pieno
+.form-check-input:checked[type="radio"] {
+  background-image: none;
+}

@@ -1,4 +1,5 @@
 <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
+    {{-- style="background-color: #3A4A64" --}}
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ route('dashboard') }}">
             <i class="bi bi-house-door-fill me-2"></i>

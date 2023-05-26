@@ -1,5 +1,7 @@
 // * IMPORT LOADER
 @import "./partials/bootstrap_loader.scss";
+// * IMPORT LOADER
+@import "./partials/_variables.scss";
 
 // * IMPORT HEADER LAYOUT
 @import "./partials/_header";
@@ -10,14 +12,20 @@
 // * IMPORT PAYMENT LAYOUT
 @import "././partials/payment/_payment.scss";
 
-// * GENERICS
-.rotate-180 {
-    transform: rotate(180deg);
-}
+// * IMPORT APARTMENT LAYOUT
+@import "././partials/apartment/_apartment.scss";
 
-a {
+// * IMPORT HEADER MESSAGES
+@import "./partials/message/message";
+
+// * GENERICS
+
+body {
+    // background-color: $background-dark;
+    font-family: "Lato", sans-serif;
+    a {
     text-decoration: none;
-    color: inherit;
+    // color: inherit;
 }
 
 .btn-icon {
@@ -27,58 +35,12 @@ a {
     border: none;
 }
 
-.table-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-}
 
 ul {
     list-style: none;
     padding-left: 0;
 }
 
-form {
-    #image_preview_content {
-        img {
-            min-width: 300px;
-            height: 300px;
-            object-fit: cover;
-        }
-
-        #button-delete-apartment-image {
-            cursor: pointer;
-            opacity: 0.3;
-            width: 1.5rem;
-            height: 1.5rem;
-            border-radius: 50%;
-        }
-    }
-    #image_preview_content:hover #button-delete-apartment-image {
-        opacity: 1;
-    }
 }
 
-input[type='radio'] {
-        width: 15px;
-        height: 15px;
-        border-radius: 15px;
-        background-color: #ee1c1c;
-        content: '';
-        border: 2px solid #ee1c1c;
-        cursor: pointer;
-    }
 
-     input[type='radio']:checked {
-        width: 15px;
-        height: 15px;
-        border-radius: 15px;
-        background-color: #1cc921;
-        content: '';
-        border: 1px solid #1cc921;
-        
-    }
-// ! tolgo la classe di bootstrap per avere il pallino verde del checked pieno
-.form-check-input:checked[type="radio"] {
-  background-image: none;
-}

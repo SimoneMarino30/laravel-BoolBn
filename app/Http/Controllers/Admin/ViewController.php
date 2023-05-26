@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Apartment;
 use App\Models\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ViewController extends Controller
 {
@@ -14,7 +17,10 @@ class ViewController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $apartments = Apartment::all();
+
+        return view('admin.dashboard', compact('apartments'));
     }
 
     /**

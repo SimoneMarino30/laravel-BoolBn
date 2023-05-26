@@ -12,19 +12,46 @@
 
 @section('content')
     <section id="payment" class="container my-5">
-        <h1>Pagamento:</h1>
-        <div class="d-flex justify-content-center">
-            <a href="{{ route('admin.sponsors.index') }}" class="btn btn-primary me-3">
-                Torna agli sponsor
-            </a>
+
+
+
+        <div class="row">
+            <div class="col position-relative">
+                <div id="isSent" class="text-bg-success message success d-none align-items-center justify-content-center">
+                    <i class="fa-solid fa-circle-check fa-fade"></i>
+                    <span class="ms-2 me-4">Pagamento effettuato! <br> Verrai renderizzato alla dashboard in 5
+                        secondi...</span>
+                </div>
+                <div id="isSentNone" class="text-bg-danger message danger d-none align-items-center justify-content-center">
+                    <i class="fa-solid fa-circle-check fa-fade"></i>
+                    <span class="ms-2 me-4">Pagamento respinto!</span>
+                </div>
+            </div>
         </div>
 
-        {{-- div fornito da Braintree per il layout --}}
-        <div>
-            @csrf
-            <div id="dropin-container"></div>
-            <button id="submit-button" class="button button--small button--green">Acquista</button>
-        </div>
+        <div class="row row-cols-1 mb-5">
+            <div class="col">
+                <h1>
+                    <span class="icon-section me-2">
+                        <i class="fa-solid fa-building fa-sm"></i>
+                    </span>
+                    Pagamento
+                </h1>
+
+            </div>
+
+            {{-- div fornito da Braintree per il layout --}}
+            <div>
+                @csrf
+                <div id="dropin-container"></div>
+                <button id="submit-button" class="button button--small button--green">Acquista</button>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <a href="{{ route('admin.sponsors.index') }}" class="btn btn-primary me-3">
+                    Torna agli sponsor
+                </a>
+            </div>
     </section>
 @endsection
 
@@ -60,13 +87,34 @@
                         apartment,
                     }, function(response) {
                         if (response.success) {
-                            alert("Payment successfull!");
+                            // messaggio di successo
+                            $('#isSent').removeClass('d-none').addClass('d-flex');
+                            $('#submit-button').addClass('d-none');
+                            setTimeout(function() {
+                                $('#isSent').removeClass('d-flex').addClass(
+                                    'd-none');
+                            }, 3000);
+                            setTimeout(function() {
+                                window.location.replace('/dashboard');
+                            }, 5000);
+
+                            // window.location.replace('{{ route('admin.sponsors.index') }}'); 
+                            // alert('Pagamento avvenuto con successo!');
+
                         } else {
-                            alert("Payment failed");
+                            $('#isSentNone').removeClass('d-none').addClass('d-flex');
+
+                            setTimeout(function() {
+                                $('#isSentNone').removeClass('d-flex').addClass(
+                                    'd-none');
+                            }, 5000);
+
+
+                            alert('Pagamento fallito. Riprova');
                         }
-                    }, "json");
+                    }, 'json');
                 });
-            })
+            });
         });
     </script>
 @endsection
