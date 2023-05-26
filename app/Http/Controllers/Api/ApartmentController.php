@@ -174,7 +174,7 @@ class ApartmentController extends Controller
 
         $apartments = Apartment::whereHas('sponsors', function ($query) {
             $query->where('expiring_date', '>=', Date('Y-m-d H:m:s'));
-        })->paginate(4);
+        })->paginate(50);
 
         foreach ($apartments as $apartment) {
             $apartment->image = $apartment->getImageUri();

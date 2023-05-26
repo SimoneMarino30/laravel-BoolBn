@@ -25,6 +25,7 @@
 <body>
     <header>
         @include('layouts.partials._navbar')
+
     </header>
     <main class="pt-4">
         @yield('content')

@@ -10,16 +10,10 @@
         @include('layouts.partials._session-message')
     </div>
 
-    <section class="container">
-        <h1 class="text-center mt-5">Lista Appartamenti</h1>
+    <section id="index" class="container">
+        {{-- <h1 class="text-center mt-5">Lista Appartamenti</h1> --}}
         <div class="row">
-            <div class="col-12 d-flex justify-content-end">
-                <a type="button" href="{{ route('admin.apartments.create') }}" class="btn btn-outline-primary">
-                    Aggiungi un nuovo appartamento
-                </a>
-
-            </div>
-            <table class="table table-dark table-striped table-hover align-middle my-5">
+            <table class="table table-striped table-hover align-middle my-5">
                 <thead>
                     <tr>
                         {{-- <th scope="col">ID</th> --}}
@@ -36,7 +30,6 @@
                 <tbody>
                     @forelse($apartments as $apartment)
                         <tr>
-                            {{-- <th scope="row">{{ $apartment->id }}</th> --}}
                             <td>
                                 <img src="{{ $apartment->getImageUri() }}" alt="" class="table-image">
                             </td>
@@ -75,14 +68,21 @@
                         </tr>
                     @empty
                         <tr>
-                            {{-- <td colspan="9" scope="row">Nessun risultato 🤦‍♂️</td> --}}
                             <td colspan="8" scope="row">Nessun risultato 🤦‍♂️</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
 
-            {{ $apartments->links() }}
+            <div class="col-12 d-flex justify-content-between">
+                {{ $apartments->links() }}
+
+                <a type="button" href="{{ route('admin.apartments.create') }}" class="btn btn-outline-primary mb-3">
+                    Aggiungi un nuovo appartamento
+                </a>
+
+            </div>
+
         </div>
     </section>
 @endsection

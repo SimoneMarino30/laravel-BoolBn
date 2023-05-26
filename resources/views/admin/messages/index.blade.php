@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <table class="table table-dark table-striped">
+        <table id="message-table" class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Appartamento</th>
@@ -35,7 +35,7 @@
             <tbody>
                 @forelse($messages as $message)
                     <tr>
-                        <th scope="row">{{ $message->apartment->title }}</th>
+                        <td scope="row">{{ $message->apartment->title }}</td>
                         <td>{{ $message->name }}</td>
                         <td>{{ $message->surname }}</td>
                         <td>{{ $message->email }}</td>

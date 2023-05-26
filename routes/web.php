@@ -66,6 +66,9 @@ Route::middleware('auth')
         // * Rotta  Pagamento
         Route::any('payment/clientToken', [PaymentController::class, 'clientToken'])->name('payment.clientToken');
         Route::get('payment/make', [PaymentController::class, 'make'])->name('payment.make');
+
+        // * Risorsa Views
+        Route::resource('View', ViewController::class)->only('index');
     });
 
 
