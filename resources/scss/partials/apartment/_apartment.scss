@@ -1,13 +1,13 @@
 #index {
     th {
-        // color: $custom4;
+        color: $primary;
+        background-color: $custom1;
     }
 
     td {
-        // color: $primary;
+        color: $text;
+        background-color: $custom1;
     }
-// background-color: $custom1;
-// color: 1px solid $custom2;
 
   .table-image {
     width: 100px;
@@ -16,12 +16,22 @@
 }
 }
 
+  .table-responsive {
+    overflow-x: auto;
+  }
+.modal-content {
+    background-color: $custom1;
+}
 // * form style
+#form {
+    background-color: $custom1;
+    color: $primary;
+}
 
 form {
     #image_preview_content {
         img {
-            min-width: 300px;
+            max-width: 100%;
             height: 300px;
             object-fit: cover;
         }
@@ -61,4 +71,15 @@ input[type='radio'] {
 // ! tolgo la classe di bootstrap per avere il pallino verde del checked pieno
 .form-check-input:checked[type="radio"] {
   background-image: none;
+}
+
+//  * Show
+
+.card {
+    background-color: $custom1;
+    color: $text;
+}
+
+strong {
+    color: $primary;
 }

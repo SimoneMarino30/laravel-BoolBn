@@ -1,10 +1,40 @@
-#message-table {
-//  background-color: $custom1;
+
+  #message-table {
     th {
-        // color: $custom4;
+        color: $primary;
+        background-color: $custom1;
     }
 
     td {
-        // color: $primary;
+        color: $text;
+        background-color: $custom1;
     }
+
+  .table-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+ .table-responsive {
+    overflow-x: auto;
   }
+.modal-content {
+    background-color: $custom1;
+}
+}
+
+
+// * TRASH
+ 
+ #trash-table {
+    th {
+        color: $primary;
+        background-color: $custom1;
+    }
+
+    td {
+        color: $text;
+        background-color: $custom1;
+    }
+}

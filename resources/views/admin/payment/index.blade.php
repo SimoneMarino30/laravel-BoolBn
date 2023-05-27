@@ -12,15 +12,11 @@
 
 @section('content')
     <section id="payment" class="container my-5">
-
-
-
         <div class="row">
             <div class="col position-relative">
                 <div id="isSent" class="text-bg-success message success d-none align-items-center justify-content-center">
                     <i class="fa-solid fa-circle-check fa-fade"></i>
-                    <span class="ms-2 me-4">Pagamento effettuato! <br> Verrai renderizzato alla dashboard in 5
-                        secondi...</span>
+                    <span class="ms-2 me-4">Pagamento effettuato! <br> Verrai reinderizzato alla home...</span>
                 </div>
                 <div id="isSentNone" class="text-bg-danger message danger d-none align-items-center justify-content-center">
                     <i class="fa-solid fa-circle-check fa-fade"></i>
@@ -28,30 +24,18 @@
                 </div>
             </div>
         </div>
+        {{-- div fornito da Braintree per il layout --}}
+        <div>
+            @csrf
+            <div id="dropin-container"></div>
+            <button id="submit-button" class="button button--small button--green">Acquista</button>
+        </div>
 
-        <div class="row row-cols-1 mb-5">
-            <div class="col">
-                <h1>
-                    <span class="icon-section me-2">
-                        <i class="fa-solid fa-building fa-sm"></i>
-                    </span>
-                    Pagamento
-                </h1>
-
-            </div>
-
-            {{-- div fornito da Braintree per il layout --}}
-            <div>
-                @csrf
-                <div id="dropin-container"></div>
-                <button id="submit-button" class="button button--small button--green">Acquista</button>
-            </div>
-
-            <div class="d-flex justify-content-center">
-                <a href="{{ route('admin.sponsors.index') }}" class="btn btn-primary me-3">
-                    Torna agli sponsor
-                </a>
-            </div>
+        <div class="d-flex justify-content-end">
+            <a href="{{ route('admin.sponsors.index') }}" class="btn btn-primary m-3">
+                Torna agli sponsor
+            </a>
+        </div>
     </section>
 @endsection
 
@@ -95,7 +79,7 @@
                                     'd-none');
                             }, 3000);
                             setTimeout(function() {
-                                window.location.replace('/dashboard');
+                                window.location.replace('/admin/apartments');
                             }, 5000);
 
                             // window.location.replace('{{ route('admin.sponsors.index') }}'); 

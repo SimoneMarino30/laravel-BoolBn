@@ -10,13 +10,7 @@
 
     <section class="container">
 
-        <h1 class="my-4">Sponsorizza il tuo appartamento</h1>
-
-        <div class="d-flex justify-content-center">
-            <a href="{{ route('admin.sponsors.index') }}" class="btn btn-primary me-3">
-                Torna agli sponsor
-            </a>
-        </div>
+        <h3 class="mt-5 text-primary">Sponsorizza il tuo appartamento</h3>
 
         <div id="sponsor_show" class="container h-100">
             <div class="row gy-5 mt-5 mt-md-0 d-flex justify-content-center mb-5">
@@ -48,7 +42,7 @@
                         </div>
                         {{-- tabella appartamenti --}}
                         <div class="col-xs-12 col-xl-8 d-flex justify-content-center align-items-center">
-                            <table class="table table-dark rounded">
+                            <table id="sponsor-pay" class="table ">
                                 {{-- HEAD --}}
                                 <thead>
                                     <tr>
@@ -61,7 +55,7 @@
                                         <th scope="col" class="d-none d-lg-table-cell p-3">
                                             <i class="bi bi-map-fill"></i>
                                         </th>
-                                        <th scope="col" class="text-center text-success p-3">
+                                        <th scope="col" class="text-center text-warning p-3">
                                             <i class="bi bi-star-fill"></i>
                                         </th>
                                     </tr>
@@ -85,7 +79,7 @@
                                             <td class="align-middle text-center">
                                                 {{-- QUI REINDIRIZZEREI ALLA STESSA route() CHE GESTISCE IL PAGAMENTO NEL CASO DELL'APPARTAMENTO RICEVUTO --}}
                                                 <a href="{{ route('admin.payment.clientToken', ['sponsor_id' => $sponsor->id, 'apartment_id' => $apartment->id]) }}"
-                                                    class="btn btn-success">
+                                                    class="btn btn-warning">
                                                     Paga
                                                 </a>
                                             </td>
@@ -98,13 +92,13 @@
                     @else
                         <div class="col">
                             <div class="d-flex justify-content-center align-items-center fs-4 mt-5">
-                                <p>Nessun appartamento da sponzorizzare</p>
+                                <p>Nessun appartamento da sponsorizzare</p>
                             </div>
                         </div>
                     @endif
                 @else
                     {{-- SE mi arriva appartamento dalla show --}}
-                    <div class="col-sm-12 col-md-6 d-flex justify-content-center">
+                    <div class="col-sm-12 col-md-6 d-flex justify-content-center sponsor-show-card">
                         <div class="my-sponsor-card">
                             <div
                                 class="my-card-header d-flex align-items-center justify-content-between p-3 @if ($sponsor->type == 'Silver') silver @elseif ($sponsor->type == 'Gold') gold @elseif ($sponsor->type == 'Platinum') platinum @endif">
@@ -121,14 +115,20 @@
                                 </p>
                             </div>
                             <div class="my-card-footer text-end">
-                                <p class="text-muted p-2">
+                                <p class="text-warning p-2">
                                     Sponsorizza per una durata di {{ $sponsor->duration }} ore
                                 </p>
+                                <div>
+                                    <a href="{{ route('admin.sponsors.index') }}" class="btn btn-primary m-3">
+                                        Torna agli sponsor
+                                    </a>
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
-                    <div class="col-sm-12 col-md-6 d-flex justify-content-center align-items-center">
+                    <div class="col-sm-12 col-md-6 d-flex justify-content-center align-items-center sponsor-show-card">
                         <div class="my-apartment-card">
                             <h2 class="text-center text-white px-2 py-3">{{ $apartment->title }}</h2>
                             <div class="px-5 pt-5">
@@ -148,5 +148,8 @@
                 @endif
             </div>
         </div>
+
     </section>
+
 @endsection
+{{-- class="d-flex justify-content-end" --}}

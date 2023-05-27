@@ -6,29 +6,29 @@
     <section class="container text-center pt-4">
 
         @if (session('message_content'))
-            <div class="alert alert-{{session('message_type') ? session('message_type') : 'success'}}">
-                {{session('message_content')}}
+            <div class="alert alert-{{ session('message_type') ? session('message_type') : 'success' }}">
+                {{ session('message_content') }}
             </div>
         @endif
 
-        <h1 class="my-4">Messagio da {{$message->email}}</h1>
+        <h3 class="my-4 text-primary">Messaggio da {{ $message->email }}</h3>
 
         <div class="card my-4">
             <div class="card-header d-flex justify-content-between">
                 <strong>
-                    {{$message->name}} {{$message->surname}}
+                    {{ $message->name }} {{ $message->surname }}
                 </strong>
-                <span>
-                    {{$message->email}}
+                <span class="text-primary">
+                    {{ $message->email }}
                 </span>
             </div>
             <div class="card-body">
                 <p>
-                    {{$message->text}}
+                    {{ $message->text }}
                 </p>
             </div>
-            <div class="card-footer">
-                Inviato: {{$message->created_at}}
+            <div class="card-footer text-primary">
+                Inviato: {{ $message->created_at }}
             </div>
         </div>
     </section>

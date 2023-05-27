@@ -12,38 +12,38 @@
 
     <section id="index" class="container">
         {{-- <h1 class="text-center mt-5">Lista Appartamenti</h1> --}}
-        <div class="row">
+        <div class="row table-responsive">
             <table class="table table-striped table-hover align-middle my-5">
                 <thead>
                     <tr>
                         {{-- <th scope="col">ID</th> --}}
-                        <th scope="col">Anteprima</th>
+                        <th scope="col" class="d-none d-md-table-cell">Anteprima</th>
                         <th scope="col">Appartamento</th>
                         <th scope="col">Prezzo</th>
-                        <th scope="col">Indirizzo</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Indirizzo</th>
                         <th scope="col">Visibile</th>
-                        <th scope="col">Creato</th>
-                        <th scope="col">Ultima modifica</th>
+                        <th scope="col" class="d-none d-md-table-cell">Creato</th>
+                        <th scope="col" class="d-none d-md-table-cell">Ultima modifica</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($apartments as $apartment)
                         <tr>
-                            <td>
-                                <img src="{{ $apartment->getImageUri() }}" alt="" class="table-image">
+                            <td class="d-none d-md-table-cell">
+                                <img src="{{ $apartment->getImageUri() }}" alt="" class="table-image col-1">
                             </td>
-                            <td>{{ $apartment->title }}</td>
-                            <td>{{ $apartment->price }} €</td>
-                            <td>{{ $apartment->address }}</td>
+                            <td class="text-wrap">{{ $apartment->title }}</td>
+                            <td class="text-wrap">{{ $apartment->price }} €</td>
+                            <td class="text-wrap d-none d-sm-table-cell">{{ $apartment->address }}</td>
                             <td>
                                 <span class="{{ $apartment->visibility ? 'text-success' : 'text-danger' }}">
                                     {!! $apartment->getIconHTML() !!}
                                 </span>
                             </td>
-                            <td>{{ $apartment->created_at }}</td>
-                            <td>{{ $apartment->updated_at }}</td>
-                            <td>
+                            <td class="text-wrap d-none d-md-table-cell">{{ $apartment->created_at }}</td>
+                            <td class="text-wrap d-none d-md-table-cell">{{ $apartment->updated_at }}</td>
+                            <td class="text-wrap">
                                 {{-- Dettaglio --}}
                                 <a href="{{ route('admin.apartments.show', $apartment) }}" title="Dettaglio">
                                     <i class="bi bi-eye-fill"></i>
@@ -77,7 +77,7 @@
             <div class="col-12 d-flex justify-content-between">
                 {{ $apartments->links() }}
 
-                <a type="button" href="{{ route('admin.apartments.create') }}" class="btn btn-outline-primary mb-3">
+                <a type="button" href="{{ route('admin.apartments.create') }}" class="btn btn-outline-warning mb-3">
                     Aggiungi un nuovo appartamento
                 </a>
 

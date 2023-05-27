@@ -3,35 +3,43 @@
 
 // VARIABILI
 $silver-color: #c0c0c0;
-$golden-color: #ffd700;
-$platinum-color: #e5e4e2;
+$golden-color: #d4af37;
+$platinum-color: #737373;
 
 // GENERICS
 
-.silver {
+.my-sponsor-card .silver {
     color: $silver-color;
+    box-shadow: 0 0 8px 0 rgba(232, 233, 228, 0.364), 0 0 20px 0 rgba(232, 233, 228, 0.364);
 }
 
 .gold {
     color: $golden-color;
+    box-shadow: 0 0 8px 0 rgba(255, 242, 0, 0.396), 0 0 20px 0 rgba(255, 242, 0, 0.396);
 }
 
 .platinum {
     color: $platinum-color;
+    box-shadow: 0 0 8px 0 rgba(241, 241, 238, 0.396), 0 0 20px 0 rgba(241, 241, 238, 0.396);
+}
+.sponsor-show-card {
+    max-height: 500px;
 }
 
 .my-sponsor-card {
     display: flex;
     flex-direction: column;
-    background-color: #212529;
+    background-color: $custom1;
     min-height: 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    // box-shadow: 0 0 8px 0 rgba(241, 241, 238, 0.396), 0 0 20px 0 rgba(241, 241, 238, 0.396);
     cursor: pointer;
     transition: 1s;
+    margin: 1rem 0 1rem 0;
 
     .my-card-header {
         font-family: 'Roboto', sans-serif;
+        background-color: $background-dark;
     }
 
     .my-card-body {
@@ -41,7 +49,11 @@ $platinum-color: #e5e4e2;
 
     .my-card-footer {
         margin-top: auto;
-    }
+        
+       p {
+            color: $warning;
+        }
+}
 }
 
 // Sponsors index
@@ -66,9 +78,24 @@ $platinum-color: #e5e4e2;
 }
 
 .my-apartment-card {
-    background-color: #212529;
+    background-color: $custom1;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 100%;
     text-align: center;
 }
+
+#sponsor-pay {
+    th {
+        color: $primary;
+        background-color: $custom1;
+    }
+
+    td {
+        color: $text;
+        background-color: $custom1;
+    }
+
+    
+  }
+

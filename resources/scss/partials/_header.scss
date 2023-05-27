@@ -1,8 +1,10 @@
 // * IMPORT LOADER
 @import "./bootstrap_loader.scss";
 
+// * IMPORT LOADER
+@import "./_variables.scss";
+
 header {
-    
     nav.navbar.fixed-top {
         ul.navbar-nav {
             li.nav-item.dropdown {
@@ -15,3 +17,42 @@ header {
         }
     }
 }
+
+nav.navbar {
+
+    #user {
+        color: $primary;
+    }
+    // border: 1px solid yellow;
+    background-color: $custom1;
+    .navbar-brand {
+        color: $text;
+    }
+
+    #burger {
+        background-color: $primary;
+        border-color: $text;
+    }
+    .nav-link {
+        color: $text;
+    }
+    
+     .nav-link.active {
+            color: $primary;
+        }
+
+        #dropdown-nav {
+            background-color: $custom1;
+
+            a {
+                color: $text;
+
+            }
+            
+        }
+        a:hover {
+            color: $background-dark!important;
+        }
+}
+
+    

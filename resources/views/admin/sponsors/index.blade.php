@@ -9,11 +9,11 @@
     </div>
 
     <section id="sponsors_list" class="container py-5">
-        <h1 class="mt-5">Sponsorizzazioni</h1>
+        <h3 class="mt-5 text-primary">Scegli la sponsorizzazione che preferisci:</h3>
 
         <div class="row">
             @forelse($sponsors as $sponsor)
-                <div class="col-12 col-md-4">
+                <div class=" col-12 col-md-4">
                     <a href="{{ route('admin.sponsors.show', [$sponsor->id, 'apartment_id' => $apartment_id]) }}">
                         <div class="my-sponsor-card">
                             <div
@@ -31,7 +31,7 @@
                                 </p>
                             </div>
                             <div class="my-card-footer text-end">
-                                <p class="text-muted p-2">
+                                <p class="p-2">
                                     Sponsorizza per una durata di {{ $sponsor->duration }} ore
                                 </p>
                             </div>

@@ -1,6 +1,7 @@
 // * IMPORT LOADER
 @import "./partials/bootstrap_loader.scss";
-// * IMPORT LOADER
+
+// * IMPORT VARIABLES
 @import "./partials/_variables.scss";
 
 // * IMPORT HEADER LAYOUT
@@ -15,14 +16,14 @@
 // * IMPORT APARTMENT LAYOUT
 @import "././partials/apartment/_apartment.scss";
 
-// * IMPORT HEADER MESSAGES
-@import "./partials/message/message";
+// * IMPORT MESSAGES LAYOUT
+@import "./partials/message/_message";
 
 // * GENERICS
 
 body {
-    // background-color: $background-dark;
-    font-family: "Lato", sans-serif;
+    background-color: $background-dark;
+    // font-family: "Lato", sans-serif;
     a {
     text-decoration: none;
     // color: inherit;
@@ -43,4 +44,9 @@ ul {
 
 }
 
+.modal-body {
+    color: $text;
+   
+}
 
+ 

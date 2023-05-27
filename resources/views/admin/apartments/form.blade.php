@@ -9,15 +9,9 @@
     <section class="container">
         <div class="row my-4">
             <div class="col-md-9">
-                <h1>
+                {{-- <h1>
                     {{ $apartment->id ? 'Modifica appartamento - ' . $apartment->title : 'Aggiungi un nuovo appartamento' }}
-                </h1>
-            </div>
-
-            <div class="col-md-3 text-end">
-                <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">
-                    Torna alla lista
-                </a>
+                </h1> --}}
             </div>
         </div>
 
@@ -25,7 +19,7 @@
             @include('layouts.partials._session-message')
         </div>
 
-        <div class="card">
+        <div id="form" class="card">
             <div class="card-body">
                 @if ($apartment->id)
                     <form action="{{ route('admin.apartments.update', $apartment) }}" enctype="multipart/form-data"
@@ -129,8 +123,7 @@
                             <div class="col-md-6">
                                 <label for="price" class="form-label">Prezzo per notte</label>
                                 <input type="number" class="form-control @error('price') is-invalid @enderror"
-                                    id="price" name="price" value="{{ old('price') ?? $apartment->price }}"
-                                    required>
+                                    id="price" name="price" value="{{ old('price') ?? $apartment->price }}" required>
                                 @error('price')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -158,27 +151,24 @@
                                     {{-- * Servizi  --}}
                                     @if (count($services) > 0)
                                         {{-- * Button trigger modal --}}
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#service-model">
-                                            Aggiungi servizi
+                                            ➕ Servizi
                                         </button>
 
-                                        {{-- * Modal --}}
-                                        <div class="modal fade text-start" id="service-model" tabindex="-1"
+                                        {{-- ! Modal --}}
+                                        <div id="service-model" class="modal fade text-start" tabindex="-1"
                                             aria-labelledby="exampleModalScrollableTitle" aria-modal="true"
                                             role="dialog">
                                             <div class="modal-dialog modal-dialog-scrollable">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Servizi</h1>
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Aggiungi più
+                                                            servizi</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-
-                                                        <h4>
-                                                            Scegli uno o più servizi
-                                                        </h4>
                                                         <div class="mb-3">
                                                             <label
                                                                 class="form-check-label d-block mb-2 @error('services') text-danger @enderror">
@@ -214,8 +204,9 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button id="checkedServices" type="button"
-                                                            class="btn btn-success" data-bs-dismiss="modal">Chiudi
-                                                            e conferma</button>
+                                                            class="btn btn-outline-primary" data-bs-dismiss="modal">
+                                                            Chiudi e conferma
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -270,7 +261,7 @@
                         </div>
 
                         <div class="mt-auto text-end">
-                            <button type="submit" class="btn btn-primary">Invia</button>
+                            <button type="submit" class="btn btn-warning">Invia</button>
                         </div>
                     </div>
 
@@ -289,12 +280,14 @@
                 @endif
 
                 {{-- ! CONTAINER STAMPA SERVIZI AGGIUNTIVI --}}
-                <div id="servicesContainer" class="d-flex flex-column flex-wrap mt-3" style="height: 10rem">
-
-                </div>
+                <div id="servicesContainer" class="d-flex flex-column flex-wrap mt-3" style="max-height: 10rem"></div>
             </div>
         </div>
-
+        <div class="col-md-12 text-end my-5">
+            <a href="{{ route('admin.apartments.index') }}" class="btn btn-outline-warning">
+                Torna alla lista
+            </a>
+        </div>
 
     </section>
 @endsection

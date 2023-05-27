@@ -3,13 +3,14 @@
 // # MY VARIABLES
 
 // * MAIN PALETTE
-// $custom1: #3A4A64;
-// $custom2: #31B598;
-// $custom3: #F3F0AC;
-// $custom4: #F18C46;
-// $custom5: #E04544;
+$custom1: #3A4A64;
+$custom2: #31B598;
+$custom3: #F3F0AC;
+$custom4: #F18C46;
+$custom5: #E04544;
 
-// $background-dark: #2D333E;
+$background-dark: #2D333E;
+$text: #b7b9d7;
 
 // # OVERRIDE BS LINKS
 // $link-hover-color: $accent;
@@ -17,43 +18,51 @@
 
 // #  OVERRIDE BS VARIABLES
 
-// $primary: goldenrod;
-// $warning: yellowgreen;
+$primary: goldenrod;
+$warning: yellowgreen;
 // 
 // # OVERRIDE BS NAV
-// $navbar-color: $custom3;
+// $navbar-bg: $custom3;
 
+// $link-color: $custom4;
+
+// BORDINO TABELLE
+$border-color: $primary;
 
 // # OVERRIDE PAGINATION 
 
-// $pagination-bg: $custom1;
-// $pagination-color: $primary;
+$pagination-bg: $custom1;
+$pagination-color: $primary;
 
 // active
-// $pagination-border-color: $primary;
-// $pagination-active-bg: $primary;
-// $pagination-active-color: $background-dark;
-// $pagination-active-border-color: $custom4;
+$pagination-border-color: $primary;
+$pagination-active-bg: $primary;
+$pagination-active-color: $background-dark;
+$pagination-active-border-color: $custom3;
 
 // hover
-// $pagination-hover-bg: $custom-pagination-light-green;
-// $pagination-hover-border-color: $custom-pagination-light-green;
-// $pagination-hover-color: $custom-pagination-green;
+$pagination-hover-bg: $warning;
+$pagination-hover-border-color: $custom3;
+$pagination-hover-color: $custom1;
 
-// $link-color: $custom-pagination-light-green;
-// $link-hover-color: $custom-pagination-light-green;
+// actions
+$link-color: $primary;
+$link-hover-color: $warning;
 
 // disabled
-// $pagination-disabled-bg: $custom-pagination-light-green;
-// $pagination-disabled-border-color: $custom-pagination-light-green;
+$pagination-disabled-bg: $custom1;
+$pagination-disabled-border-color: $primary;
 
 // focus
 
-// $pagination-focus-bg: $custom-pagination-light-green;
-// $pagination-focus-box-shadow: $custom-pagination-focus-box-shadow;
+$pagination-focus-bg: $warning;
+$pagination-focus-box-shadow: $primary;
 
 // dropdown
 
-// $dropdown-link-hover-bg: $custom-pagination-green;
-// $dropdown-link-active-bg: $custom-pagination-light-green;
-// $dropdown-link-active-color: $custom-dark;
+$dropdown-link-hover-bg: $primary!important;
+// $dropdown-link-active-bg: $custom5;
+
+
+
+

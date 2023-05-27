@@ -10,7 +10,7 @@
 
     <section class="container text-center pt-4">
 
-        <h1 class="my-4">Dettaglio - {{ $apartment->id }}</h1>
+        {{-- <h1 class="my-4">Dettaglio - {{ $apartment->id }}</h1> --}}
 
         <div class="d-flex justify-content-center">
             <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary me-3">
